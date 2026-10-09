@@ -1,0 +1,24 @@
+@use "../abstracts" as *;
+
+.chk {
+  display: flex;
+  gap: space("md");
+  align-items: flex-start;
+  font-size: $font-size-sm;
+  line-height: 1.55;
+  color: var(--muted);
+  cursor: pointer;
+
+  input {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    margin: 1px 0 0;
+    accent-color: var(--blue);
+  }
+}
+
+// Success "checked" glyph (e.g. form-submitted confirmation icon).
+.okmark {
+  animation: pop 0.6s $ease-out-soft both;
+}

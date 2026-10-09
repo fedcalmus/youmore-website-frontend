@@ -1,0 +1,200 @@
+@use "../abstracts" as *;
+
+.logo-page__head {
+  @include container;
+  padding-top: 72px;
+  padding-bottom: space("4xl");
+  display: flex;
+  flex-wrap: wrap;
+  gap: space("3xl");
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.logo-page__title {
+  margin: space("md") 0 0;
+  font-size: clamp(40px, 5.5vw, 80px);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.logo-page__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.logo-sheet-wrap {
+  padding: 0 space("3xl") space("10xl");
+}
+
+.logo-sheet {
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+  border-radius: $radius-3xl;
+}
+
+.logo-sheet__grid {
+  width: 1200px;
+  height: 900px;
+  background: var(--fog);
+  color: var(--ink);
+  padding: space("5xl");
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 500px 1fr;
+  gap: 20px;
+}
+
+.logo-tile {
+  border-radius: $radius-3xl;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-tile--primary {
+  grid-column: span 7;
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+.logo-tile--dark {
+  background: var(--ink);
+}
+
+.logo-tile--yellow {
+  background: var(--sun);
+}
+
+.logo-tile--blue {
+  background: var(--blue);
+}
+
+.logo-tile__label {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  color: var(--muted);
+}
+
+.logo-tile__label--sm {
+  top: 22px;
+  left: 26px;
+}
+
+.logo-tile__label--on-dark {
+  color: var(--on-dark-faint);
+}
+
+.logo-tile__label--on-yellow {
+  color: var(--on-sun-muted);
+}
+
+.logo-tile__label--on-blue {
+  color: var(--on-dark-link);
+}
+
+.logo-tile__content {
+  display: flex;
+  align-items: center;
+  gap: space("3xl");
+}
+
+.logo-tile__content--tight {
+  gap: 14px;
+}
+
+.logo-tile__caption {
+  position: absolute;
+  bottom: 24px;
+  left: 28px;
+  right: 28px;
+  font-size: $font-size-sm;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.logo-stack {
+  grid-column: span 5;
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.logo-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.logo-panel {
+  grid-column: span 4;
+  background: var(--white);
+  border-radius: $radius-3xl;
+  border: 1px solid var(--line);
+  padding: space("2xl") + 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.logo-panel--spaced {
+  gap: space("2xl");
+}
+
+.logo-panel__label {
+  color: var(--muted);
+}
+
+.logo-panel__icons {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  flex: 1;
+}
+
+.logo-panel__note {
+  font-size: $font-size-xs;
+  color: var(--muted);
+}
+
+.logo-swatches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: space("sm");
+  flex: 1;
+}
+
+.logo-swatch {
+  border-radius: $radius-lg;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.logo-swatch__hex {
+  font-size: $font-size-xs;
+}
+
+.logo-panel__sample {
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.logo-panel__sample--sans {
+  font-size: 30px;
+  font-weight: 600;
+  margin-top: auto;
+}
+
+.logo-panel__caption {
+  font-size: $font-size-sm;
+  color: var(--muted);
+}

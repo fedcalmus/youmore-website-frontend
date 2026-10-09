@@ -1,0 +1,52 @@
+// Dark theme. Scaffolded and ready to use, but not wired up to
+// `prefers-color-scheme` — the current design was only ever built for
+// light surfaces, so flipping it on automatically would break pages.
+// To enable it for real, set `<html data-theme="dark">` (e.g. from a
+// theme-toggle component) once the rest of the UI has been checked
+// against these values.
+:root[data-theme="dark"] {
+  --ink: #f5f6fa;
+  --ink-rgb: 245, 246, 250;
+  --blue: #5b7cff;
+  --blue-rgb: 91, 124, 255;
+  --blue-dark: #88a0ff;
+  --sun: #ffc83d;
+  --sun-rgb: 255, 200, 61;
+
+  --white: #10163a;
+  --white-rgb: 16, 22, 58;
+  --fog: #0b1230;
+  --fog-rgb: 11, 18, 48;
+  --line: #262f57;
+  --line-soft: #1b2347;
+  --muted: #a9b6e0;
+  --muted-faint: #8a93ab;
+  --ink-soft: #c9d3f5;
+  --soft: #1b2660;
+
+  --border: #313c6c;
+  --border-strong: #3a4678;
+  --border-faint: #3a4678;
+  --panel: #161d47;
+  --panel-strong: #121a3e;
+  --track: #1b2347;
+  --seg-track: #171e49;
+
+  --on-dark-muted: #a9b6e0;
+  --on-dark-link: #c9d3f5;
+  --on-dark-border: #313c6c;
+  --map-dot-rgb: 173, 190, 255;
+  --on-dark-faint: #7f8cb8;
+  --on-dark-divider: #313c6c;
+  --on-dark-border-strong: #3a4678;
+
+  --error: #ff6b5e;
+  --error-bg: #3a1716;
+  --success: #3ddc84;
+
+  --on-sun-ink: #3a3320;
+  --on-sun-muted: #6b5510;
+  --on-sun-strong: #5a4a10;
+
+  color-scheme: dark;
+}

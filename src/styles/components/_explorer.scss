@@ -1,0 +1,141 @@
+@use "../abstracts" as *;
+
+.explorer__filters {
+  @include container;
+}
+
+.explorer__scope {
+  display: flex;
+  gap: space("md");
+  flex-wrap: wrap;
+}
+
+.big__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.big__info-title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.big__info-sub {
+  font-size: $font-size-sm;
+  opacity: 0.8;
+}
+
+.big__count {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.explorer__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: $radius-2xl - 2px;
+}
+
+.explorer__segtrack {
+  display: flex;
+  gap: space("2xs");
+  padding: space("2xs");
+  background: var(--seg-track);
+  border-radius: $radius-pill;
+}
+
+.seg__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-circle;
+  background: var(--success);
+  margin-right: space("sm");
+}
+
+.explorer__chips {
+  display: flex;
+  gap: space("sm");
+  flex-wrap: wrap;
+}
+
+.explorer__search {
+  display: flex;
+  align-items: center;
+  flex: 1 1 220px;
+  max-width: 300px;
+  position: relative;
+}
+
+.explorer__search-icon {
+  position: absolute;
+  left: 14px;
+  display: flex;
+  color: var(--muted);
+}
+
+.explorer__results-section {
+  @include container;
+  padding-top: 28px;
+  padding-bottom: space("10xl");
+}
+
+.explorer__count {
+  font-size: $font-size-sm;
+  color: var(--muted);
+  margin-bottom: space("lg");
+}
+
+.explorer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.explorer__empty {
+  background: var(--white);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: $radius-2xl;
+  padding: 56px space("3xl");
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: space("md");
+}
+
+.explorer__empty-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.explorer__empty-text {
+  margin: 0;
+  color: var(--muted);
+  max-width: 420px;
+  line-height: 1.6;
+}
+
+.explorer__empty-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.explorer__more {
+  display: flex;
+  justify-content: center;
+  margin-top: space("5xl");
+}

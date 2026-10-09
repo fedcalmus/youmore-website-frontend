@@ -1,0 +1,70 @@
+@use "../abstracts" as *;
+
+.cookie {
+  position: fixed;
+  left: space("lg");
+  bottom: space("lg");
+  z-index: $z-cookie;
+  width: min(420px, calc(100% - 32px));
+  background: var(--white);
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-xl;
+  padding: space("3xl");
+  display: flex;
+  flex-direction: column;
+  gap: space("lg");
+  border: 1px solid var(--line);
+  animation: up 0.6s $ease-out-soft both;
+}
+
+.cookie__title {
+  font-size: $font-size-xl;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.cookie__text {
+  margin: 0;
+  font-size: $font-size-md - 2;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.cookie__prefs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  background: var(--fog);
+  border-radius: $radius-lg;
+}
+
+.cookie__pref-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: space("md");
+}
+
+.cookie__pref-label {
+  font-weight: 600;
+}
+
+.cookie__pref-static {
+  font-size: $font-size-sm - 1;
+  color: var(--muted);
+}
+
+.cookie__actions {
+  display: flex;
+  gap: space("sm");
+  flex-wrap: wrap;
+}
+
+.cookie__action {
+  flex: 1 1 auto;
+}
+
+.cookie__action--full {
+  flex: 1 1 100%;
+}

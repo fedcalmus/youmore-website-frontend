@@ -1,0 +1,35 @@
+@use "../abstracts" as *;
+
+.legal-tabs__bar {
+  @include container;
+  padding-bottom: space("3xl");
+}
+
+.legal-tabs__layout {
+  @include container;
+  padding-bottom: space("10xl");
+  display: flex;
+  flex-wrap: wrap;
+  gap: space("5xl");
+  align-items: flex-start;
+}
+
+.legal-tabs__nav {
+  flex: 1 1 240px;
+  max-width: 300px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: $radius-xl;
+  padding: space("md");
+  position: sticky;
+  top: 96px;
+}
+
+.legal-tabs__panel {
+  flex: 999 1 560px;
+  min-width: 0;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: $radius-3xl;
+  padding: clamp(24px, 4vw, 56px);
+}

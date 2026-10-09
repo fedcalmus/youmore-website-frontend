@@ -1,0 +1,13 @@
+@use "sass:math";
+
+// px -> rem, assuming a 16px root font-size.
+@function rem($px, $base: 16) {
+  @return math.div($px, $base) * 1rem;
+}
+
+// Build an rgba() color from one of the "-rgb" triplet custom properties
+// declared in themes/_light.scss and themes/_dark.scss, e.g.:
+//   background: alpha(ink, 0.08);
+@function alpha($token, $opacity) {
+  @return rgba(var(--#{$token}-rgb), #{$opacity});
+}

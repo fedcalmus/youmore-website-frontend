@@ -1,0 +1,102 @@
+@use "../abstracts" as *;
+
+.project-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: $radius-2xl;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card--carousel {
+  flex: 0 0 auto;
+  width: min(360px, 82vw);
+}
+
+// Background/color come from the project's own palette (project.bg / .fg),
+// set inline per-card — see ProjectCard.tsx.
+.project-card__media {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card__media-code {
+  position: absolute;
+  right: space("lg");
+  bottom: -22px;
+  font-weight: 800;
+  font-size: 128px;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.project-card__status {
+  position: absolute;
+  top: space("lg");
+  left: space("lg");
+  display: inline-flex;
+  align-items: center;
+  gap: space("sm");
+  background: var(--white);
+  color: var(--ink);
+  font-size: $font-size-xs;
+  font-weight: 700;
+  padding: 7px space("md");
+  border-radius: $radius-pill;
+}
+
+.project-card__body {
+  padding: space("2xl");
+  display: flex;
+  flex-direction: column;
+  gap: space("md");
+  flex: 1;
+}
+
+.project-card__eyebrow {
+  font-size: $font-size-xs;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project-card__title {
+  margin: 0;
+  font-size: $font-size-3xl;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.project-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: space("xs");
+  color: var(--muted);
+  font-size: $font-size-lg - 3;
+}
+
+.project-card__meta-row {
+  display: flex;
+  align-items: center;
+  gap: space("sm");
+}
+
+.project-card__footer {
+  margin-top: auto;
+  padding-top: space("md") + 2px;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: space("md");
+}
+
+// `project.dlColor` is per-project data, applied inline as `color`.
+.project-card__deadline {
+  font-size: $font-size-sm;
+  font-weight: 600;
+}

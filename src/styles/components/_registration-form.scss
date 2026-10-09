@@ -1,0 +1,43 @@
+@use "../abstracts" as *;
+
+.registration-form {
+  max-width: 520px;
+}
+
+.registration-form__success {
+  max-width: 480px;
+}
+
+.registration-form__success-title {
+  margin: 0;
+  font-size: 36px;
+  letter-spacing: -0.03em;
+}
+
+.registration-form__success-text {
+  margin: 0;
+  color: var(--muted);
+  font-size: $font-size-lg;
+  line-height: 1.6;
+}
+
+.registration-form__title {
+  margin: 0 0 space("xs");
+  font-size: $font-size-3xl + 6px;
+  letter-spacing: -0.03em;
+}
+
+.registration-form__submit {
+  min-height: 54px;
+  margin-top: space("xs");
+}
+
+.registration-form__footnote {
+  margin: 0;
+  font-size: $font-size-md - 2;
+  color: var(--muted);
+}
+
+.registration-form__link {
+  font-weight: 700;
+}

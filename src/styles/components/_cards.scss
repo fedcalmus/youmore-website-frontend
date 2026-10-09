@@ -1,0 +1,139 @@
+@use "../abstracts" as *;
+
+// Generic hover-lift card (project cards, contact cards, funder cards).
+.card,
+.ct,
+.fund {
+  transition: transform $duration-slow $ease-out-soft, box-shadow $duration-slow;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow-lg;
+    color: var(--ink);
+  }
+}
+
+.card.anim {
+  animation: cardin 0.5s $ease-out-soft both;
+}
+
+// Small circular icon chip (card arrows, contact/funders "go" glyphs).
+// Size/background/color are set per-instance via custom properties since
+// they vary by card type — see ProjectCard, contact & funders pages.
+.icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--icon-circle-size, 40px);
+  height: var(--icon-circle-size, 40px);
+  border-radius: $radius-circle;
+  background: var(--icon-circle-bg, var(--panel));
+  color: var(--icon-circle-color, var(--ink));
+}
+
+// Small circular arrow glyph that flips/colors on card hover.
+.arrow,
+.go {
+  transition: transform $duration-base, background $duration-base, color $duration-base;
+}
+
+.card:hover .arrow,
+.fund:hover .go {
+  background: var(--blue);
+  color: var(--white);
+  transform: rotate(-45deg);
+}
+
+.ct:hover .go {
+  transform: rotate(-45deg);
+}
+
+.fund {
+  color: var(--ink);
+}
+
+// Horizontally snapping card rail (e.g. the home project carousel track).
+.scroller {
+  @include scroller;
+}
+
+.snap {
+  scroll-snap-align: start;
+}
+
+// Team/testimonial member card.
+.member {
+  transition: transform $duration-slow $ease-out-soft;
+
+  &:hover {
+    transform: translateY(-6px);
+  }
+
+  &:hover .ph {
+    border-radius: $radius-circle;
+  }
+}
+
+.ph {
+  transition: border-radius 0.5s $ease-out-soft;
+}
+
+.mcard {
+  animation: up 0.8s $ease-out-soft both;
+  transition: transform 0.45s $ease-out-soft, box-shadow 0.45s;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow-2xl;
+  }
+
+  &:hover .photo {
+    transform: scale(1.04);
+  }
+}
+
+.photo {
+  transition: transform 0.7s $ease-out-soft;
+}
+
+// Quote card (masonry-style testimonials column).
+.q {
+  break-inside: avoid;
+  margin: 0 0 space("xl");
+  transition: transform $duration-slow $ease-out-soft;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+// Compact link row (e.g. a document/download list item).
+.row {
+  display: flex;
+  align-items: center;
+  gap: space("md");
+  min-height: 52px;
+  padding: 0 space("sm") 0 space("lg");
+  border-radius: $radius-md;
+  background: var(--fog);
+  transition: background $duration-fast;
+
+  &:hover {
+    background: var(--soft);
+  }
+
+  a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    flex: 1;
+    min-width: 0;
+    @include truncate;
+    line-height: 52px;
+
+    &:hover {
+      color: var(--blue);
+    }
+  }
+}

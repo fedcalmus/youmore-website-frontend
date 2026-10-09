@@ -1,0 +1,46 @@
+@use "../abstracts" as *;
+
+.sr {
+  @include visually-hidden;
+}
+
+.skip {
+  position: absolute;
+  left: space("lg");
+  top: -60px;
+  z-index: $z-skip-link;
+  background: var(--ink);
+  color: var(--white);
+  padding: space("md") space("xl");
+  border-radius: $radius-md;
+  font-weight: 700;
+
+  &:focus {
+    top: space("md");
+    color: var(--white);
+  }
+}
+
+// Scroll target offset so a sticky header doesn't cover an anchored section.
+.scroll-anchor {
+  scroll-margin-top: 80px;
+}
+
+// Dotted decorative pattern, colored via `color` on the element.
+.pat {
+  background-image: radial-gradient(currentColor 1.3px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+
+// Absolutely-positioned full-cover variant — opacity/color are tuned
+// per usage, so they stay inline.
+.pat--cover {
+  position: absolute;
+  inset: 0;
+}
+
+@include respond-down("sm") {
+  .hide-sm {
+    display: none !important;
+  }
+}

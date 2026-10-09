@@ -1,0 +1,34 @@
+@use "sass:map";
+
+// Breakpoint tokens, smallest to largest. Values mirror the max-widths that
+// already existed inline across pages (640 / 920 / 1280) plus a couple of
+// extra steps so new UI has room to respond at more sizes.
+$breakpoints: (
+  "xs": 400px,
+  "sm": 640px,
+  "md": 768px,
+  "lg": 920px,
+  "xl": 1080px,
+  "xxl": 1280px,
+);
+
+@function bp($name) {
+  @if not map.has-key($breakpoints, $name) {
+    @error "Unknown breakpoint `#{$name}`. Available: #{map.keys($breakpoints)}.";
+  }
+  @return map.get($breakpoints, $name);
+}
+
+// Usage: @include respond-up("lg") { ... }
+@mixin respond-up($name) {
+  @media (min-width: bp($name)) {
+    @content;
+  }
+}
+
+// Usage: @include respond-down("sm") { ... }
+@mixin respond-down($name) {
+  @media (max-width: bp($name)) {
+    @content;
+  }
+}

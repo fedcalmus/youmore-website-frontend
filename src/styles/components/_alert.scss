@@ -1,0 +1,12 @@
+@use "../abstracts" as *;
+
+.alert {
+  border-radius: $radius-lg;
+  padding: space("lg") space("xl");
+  font-weight: 600;
+}
+
+.alert-error {
+  background: var(--error-bg);
+  color: var(--error);
+}

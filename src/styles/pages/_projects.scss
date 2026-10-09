@@ -1,0 +1,31 @@
+@use "../abstracts" as *;
+
+.projects-head {
+  @include container;
+  padding-top: space("9xl");
+  padding-bottom: space("4xl");
+}
+
+.projects-head__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: space("3xl");
+}
+
+.projects-head__title {
+  margin: space("md") 0 0;
+  font-size: clamp(44px, 6.5vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+}
+
+.projects-head__intro {
+  margin: 0;
+  max-width: 380px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.6;
+}

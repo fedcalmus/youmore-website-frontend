@@ -1,0 +1,51 @@
+@use "../abstracts" as *;
+
+// Radio group rendered as a row of pill buttons with a visually-hidden
+// native <input type="radio"> for a11y/keyboard support.
+.pills {
+  display: flex;
+  gap: space("sm");
+  flex-wrap: wrap;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.pill {
+  position: relative;
+  display: inline-flex;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 56px;
+    padding: 0 space("xl");
+    border-radius: $radius-pill;
+    font-weight: 600;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    background: var(--white);
+    color: var(--ink);
+    border: 1.5px solid var(--border);
+    transition: background $duration-fast, color $duration-fast, border-color $duration-fast;
+  }
+
+  input:checked + span {
+    background: var(--blue);
+    color: var(--white);
+    border-color: var(--blue);
+  }
+
+  input:focus-visible + span {
+    @include focus-ring;
+  }
+}

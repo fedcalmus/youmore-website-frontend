@@ -1,0 +1,88 @@
+@use "variables" as *;
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// The 1280px-max, auto-centered, 24px-gutter wrapper used on every page section.
+@mixin container($max: $container-max, $padding: $container-padding-inline) {
+  max-width: $max;
+  margin: 0 auto;
+  padding-left: $padding;
+  padding-right: $padding;
+}
+
+@mixin flex($align: center, $justify: flex-start, $gap: 0, $wrap: nowrap) {
+  display: flex;
+  flex-wrap: $wrap;
+  align-items: $align;
+  justify-content: $justify;
+  @if $gap != 0 {
+    gap: $gap;
+  }
+}
+
+@mixin flex-center($gap: 0) {
+  @include flex(center, center, $gap);
+}
+
+@mixin flex-between($align: center, $gap: 0) {
+  @include flex($align, space-between, $gap);
+}
+
+@mixin flex-column($gap: 0, $align: stretch) {
+  display: flex;
+  flex-direction: column;
+  align-items: $align;
+  @if $gap != 0 {
+    gap: $gap;
+  }
+}
+
+@mixin grid-auto-fit($min: 240px, $gap: space("xl")) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min, 1fr));
+  gap: $gap;
+}
+
+@mixin transition($props...) {
+  $list: ();
+  @each $prop in $props {
+    $list: append($list, $prop $duration-base, comma);
+  }
+  transition: $list;
+}
+
+@mixin focus-ring {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin eyebrow($color: var(--sun)) {
+  font-size: $font-size-sm;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $color;
+}
+
+@mixin scroller {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

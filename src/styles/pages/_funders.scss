@@ -1,0 +1,117 @@
+@use "../abstracts" as *;
+
+.funders-head {
+  @include container;
+  padding-top: 88px;
+  padding-bottom: space("6xl");
+  display: flex;
+  flex-wrap: wrap;
+  gap: space("4xl");
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.funders-head__title {
+  margin: space("md") 0 0;
+  font-size: clamp(44px, 6.5vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+  max-width: 12ch;
+}
+
+.funders-head__intro {
+  margin: 0;
+  max-width: 400px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.funders-list {
+  @include container;
+  padding-bottom: space("10xl");
+}
+
+.funders-list__grid {
+  @include grid-auto-fit(320px, 20px);
+}
+
+.funder-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: $radius-3xl;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.funder-card__logo {
+  aspect-ratio: 16 / 9;
+  background: var(--panel-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.funder-card__logo-badge {
+  border: 1.5px dashed var(--border-faint);
+  border-radius: $radius-lg;
+  padding: 22px space("3xl");
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.funder-card__body {
+  padding: space("2xl") + 4px;
+  display: flex;
+  flex-direction: column;
+  gap: space("sm") + 2px;
+  flex: 1;
+}
+
+.funder-card__title {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.025em;
+}
+
+.funder-card__text {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.funder-card__domain {
+  margin-top: auto;
+  padding-top: space("lg");
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.funders-placeholder {
+  border: 1.5px dashed var(--border-strong);
+  border-radius: $radius-3xl;
+  padding: space("4xl");
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: space("sm") + 2px;
+  min-height: 280px;
+}
+
+.funders-placeholder__title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.funders-placeholder__text {
+  color: var(--muted);
+  line-height: 1.6;
+}

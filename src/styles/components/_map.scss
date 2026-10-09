@@ -1,0 +1,160 @@
+@use "../abstracts" as *;
+
+.map {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.233;
+}
+
+.mdot {
+  position: absolute;
+  width: 0.78%;
+  aspect-ratio: 1;
+  border-radius: $radius-circle;
+  background: rgba(var(--map-dot-rgb), 0.3);
+  transform: translate(-50%, -50%);
+  animation: dotin 0.5s ease both;
+}
+
+.pin {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  animation: drop 0.8s $ease-out-soft both;
+  z-index: $z-map;
+
+  &:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+    border-radius: $radius-circle;
+  }
+
+  .core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
+    border-radius: $radius-circle;
+    background: var(--sun);
+    box-shadow: 0 0 0 3px rgba(var(--ink-rgb), 0.9);
+    transition: transform 0.25s $ease-out-soft;
+  }
+
+  .ring {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
+    border-radius: $radius-circle;
+    background: var(--sun);
+    animation: pulse 2.4s ease-out infinite;
+  }
+
+  &:hover .core,
+  &.on .core {
+    transform: scale(1.5);
+  }
+
+  &.on {
+    z-index: $z-pin-active;
+  }
+
+  .tip {
+    display: none;
+    position: absolute;
+    bottom: 34px;
+    min-width: 190px;
+    background: var(--white);
+    color: var(--ink);
+    border-radius: $radius-lg;
+    padding: space("md") space("xl");
+    box-shadow: $shadow-md;
+    text-align: left;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  &.on .tip {
+    display: block;
+    animation: tip 0.22s ease both;
+  }
+}
+
+.pin__tip-name {
+  display: block;
+  font-size: $font-size-xs;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.pin__tip-count {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.pin__tip-count-label {
+  font-size: $font-size-md - 2;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.pin__tip-last {
+  display: block;
+  margin-top: space("xs");
+  font-size: $font-size-xs;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.home-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.home-pin__marker {
+  display: flex;
+  align-items: center;
+  gap: space("sm");
+}
+
+.home-pin__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: $radius-sm - 4;
+  background: var(--white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 3px var(--blue);
+}
+
+.home-pin__dot-core {
+  width: 6px;
+  height: 6px;
+  border-radius: $radius-circle;
+  background: var(--blue);
+}
+
+.home-pin__label {
+  font-size: $font-size-xs - 1;
+  font-weight: 700;
+  background: var(--blue);
+  color: var(--white);
+  padding: space("2xs") space("sm");
+  border-radius: $radius-sm - 2;
+  white-space: nowrap;
+}

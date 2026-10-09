@@ -1,0 +1,84 @@
+@use "../abstracts" as *;
+
+.site-footer {
+  background: var(--ink);
+  color: var(--white);
+  margin-top: space("lg");
+}
+
+.site-footer__inner {
+  @include container;
+  padding-top: 72px;
+  padding-bottom: space("4xl");
+  @include flex-column(space("6xl"));
+}
+
+.site-footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: space("6xl");
+  justify-content: space-between;
+}
+
+.site-footer__brand {
+  flex: 1 1 280px;
+  max-width: 360px;
+  @include flex-column(space("lg"));
+}
+
+.site-footer__brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-footer__tagline {
+  margin: 0;
+  color: var(--on-dark-muted);
+  line-height: 1.6;
+}
+
+.site-footer__nav {
+  @include flex-column(10px);
+}
+
+.site-footer__heading {
+  @include eyebrow(var(--on-dark-faint));
+}
+
+.site-footer__contact {
+  @include flex-column(10px);
+}
+
+.site-footer__social {
+  display: flex;
+  gap: 10px;
+  margin-top: space("xs");
+}
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: space("lg") space("3xl");
+  justify-content: space-between;
+  padding-top: space("3xl");
+  border-top: 1px solid var(--on-dark-divider);
+  font-size: $font-size-sm;
+  color: var(--on-dark-faint);
+}
+
+.site-footer__legal-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+// Footer text links, on the dark footer background.
+.flink {
+  color: var(--on-dark-link);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--sun);
+  }
+}

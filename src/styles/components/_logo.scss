@@ -1,0 +1,8 @@
+@use "../abstracts" as *;
+
+// `fontSize`, `starColor` and `inkColor` are per-instance props (the
+// footer renders an inverted, larger wordmark) — kept inline on purpose.
+.wordmark {
+  font-weight: 800;
+  letter-spacing: -0.045em;
+}

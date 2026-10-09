@@ -1,0 +1,52 @@
+@use "../abstracts" as *;
+
+.contact-head {
+  @include container;
+  padding-top: 88px;
+  padding-bottom: space("10xl");
+}
+
+.contact-head__title {
+  margin: space("md") 0 space("6xl");
+  font-size: clamp(44px, 6.5vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+}
+
+.contact-grid {
+  @include grid-auto-fit(260px, 20px);
+}
+
+.contact-card {
+  min-height: 260px;
+  border-radius: $radius-3xl;
+  padding: space("4xl");
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: space("3xl");
+}
+
+.contact-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.contact-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: space("xs");
+}
+
+.contact-card__label {
+  font-weight: 600;
+}
+
+.contact-card__value {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  word-break: break-word;
+}

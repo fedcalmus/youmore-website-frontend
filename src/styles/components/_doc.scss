@@ -1,0 +1,20 @@
+@use "../abstracts" as *;
+
+.doc {
+  animation: fade 0.45s ease both;
+
+  h2 {
+    font-family: var(--font-bricolage), sans-serif;
+    font-size: $font-size-3xl;
+    letter-spacing: -0.02em;
+    margin: space("5xl") 0 space("md");
+    scroll-margin-top: 90px;
+  }
+
+  p,
+  li {
+    font-size: $font-size-md;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+}

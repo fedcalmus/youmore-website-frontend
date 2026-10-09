@@ -1,0 +1,16 @@
+@use "../abstracts" as *;
+
+.toc {
+  display: block;
+  padding: space("md") space("xl");
+  border-radius: $radius-md;
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: $font-size-md;
+
+  &:hover {
+    background: var(--soft);
+    color: var(--blue);
+  }
+}

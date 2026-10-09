@@ -1,0 +1,178 @@
+@use "../abstracts" as *;
+
+.btn {
+  @include flex-center(space("sm"));
+  min-height: 48px;
+  padding: 0 space("2xl");
+  border-radius: $radius-pill;
+  font-weight: 700;
+  font-size: $font-size-base;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.25s $ease-out-soft, background $duration-fast, box-shadow 0.25s, color $duration-fast;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.btn-sun {
+  background: var(--sun);
+  color: var(--ink);
+
+  &:hover {
+    color: var(--ink);
+    box-shadow: $shadow-sm;
+  }
+}
+
+.btn-blue {
+  background: var(--blue);
+  color: var(--white);
+
+  &:hover {
+    background: var(--blue-dark);
+    color: var(--white);
+  }
+}
+
+.btn-line {
+  background: transparent;
+  color: var(--white);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.55);
+
+  &:hover {
+    color: var(--white);
+    box-shadow: inset 0 0 0 1.5px var(--white);
+  }
+}
+
+.btn-ink {
+  background: var(--ink);
+  color: var(--white);
+
+  &:hover {
+    color: var(--white);
+    background: var(--blue);
+  }
+}
+
+// Neutral panel button — e.g. a secondary action next to a primary `.btn-blue`.
+.btn-panel {
+  background: var(--panel);
+  color: var(--ink);
+
+  &:hover {
+    color: var(--ink);
+  }
+}
+
+// White button with an inset border ring (e.g. "show more" pagination).
+.btn-outline {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--border-strong);
+
+  &:hover {
+    color: var(--ink);
+  }
+}
+
+// Transparent text-style button (e.g. "Personalizza" in the cookie banner).
+.btn-text {
+  background: transparent;
+  color: var(--blue);
+  min-height: 44px;
+}
+
+// Soft brand-tint button (e.g. "Il board" next to a primary CTA).
+.btn-soft {
+  background: var(--soft);
+  color: var(--blue);
+
+  &:hover {
+    color: var(--blue);
+  }
+}
+
+// Low-contrast button for use on a colored (e.g. sun-yellow) surface.
+.btn-ghost-ink {
+  background: alpha(ink, 0.08);
+  color: var(--ink);
+
+  &:hover {
+    color: var(--ink);
+  }
+}
+
+// Size modifiers
+.btn-lg {
+  min-height: 56px;
+  padding: 0 space("4xl");
+  font-size: $font-size-md;
+}
+
+.btn-sm {
+  min-height: 40px;
+  padding: 0 space("lg");
+  font-size: 15px;
+}
+
+// Circular icon button (carousel prev/next, map "back" etc.)
+.round {
+  width: 52px;
+  height: 52px;
+  border-radius: $radius-circle;
+  border: 1.5px solid var(--border-strong);
+  background: var(--white);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background $duration-fast, color $duration-fast, border-color $duration-fast;
+
+  &:hover {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+  }
+}
+
+// Small pill action button (copy-to-clipboard, etc.)
+.cp {
+  min-width: 44px;
+  height: 40px;
+  padding: 0 space("md");
+  border: 0;
+  border-radius: $radius-sm;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background $duration-fast, color $duration-fast;
+
+  &:hover {
+    background: var(--ink);
+    color: var(--white);
+  }
+}
+
+// Text-styled button used inline with copy (e.g. footer "Preferenze cookie")
+.linkbtn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--on-dark-link);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--sun);
+  }
+}

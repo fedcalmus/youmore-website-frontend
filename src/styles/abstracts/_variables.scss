@@ -1,0 +1,78 @@
+@use "sass:map";
+
+// Colors live in themes/_light.scss + themes/_dark.scss as CSS custom
+// properties (so a theme can be swapped at runtime). Everything that is
+// purely structural and never needs to change per-theme lives here instead.
+
+// Spacing scale — matches the paddings/gaps already in use across the site.
+$space: (
+  "3xs": 2px,
+  "2xs": 4px,
+  "xs": 6px,
+  "sm": 8px,
+  "md": 12px,
+  "lg": 16px,
+  "xl": 18px,
+  "2xl": 22px,
+  "3xl": 24px,
+  "4xl": 32px,
+  "5xl": 40px,
+  "6xl": 48px,
+  "7xl": 56px,
+  "8xl": 64px,
+  "9xl": 80px,
+  "10xl": 96px,
+);
+
+@function space($key) {
+  @if not map.has-key($space, $key) {
+    @error "Unknown space key `#{$key}`. Available: #{map.keys($space)}.";
+  }
+  @return map.get($space, $key);
+}
+
+// Radii
+$radius-sm: 10px;
+$radius-md: 14px;
+$radius-lg: 16px;
+$radius-xl: 20px;
+$radius-2xl: 24px;
+$radius-3xl: 28px;
+$radius-4xl: 32px;
+$radius-pill: 999px;
+$radius-circle: 50%;
+
+// Page/container widths
+$container-max: 1280px;
+$container-padding-inline: 24px;
+
+// Shadows (neutral — tinted via rgba(ink), same across themes for now)
+$shadow-sm: 0 12px 28px -12px rgba(11, 26, 58, 0.25);
+$shadow-md: 0 18px 40px -16px rgba(0, 0, 0, 0.55);
+$shadow-lg: 0 28px 50px -28px rgba(11, 26, 58, 0.45);
+$shadow-xl: 0 30px 60px -20px rgba(11, 26, 58, 0.45);
+$shadow-2xl: 0 32px 60px -32px rgba(11, 26, 58, 0.45);
+
+// Motion
+$ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+$duration-fast: 0.2s;
+$duration-base: 0.3s;
+$duration-slow: 0.4s;
+$duration-slower: 0.6s;
+
+// Z-index scale
+$z-map: 1;
+$z-pin-active: 5;
+$z-header: 50;
+$z-cookie: 80;
+$z-skip-link: 100;
+
+// Font sizes used repeatedly outside of the fluid/clamp hero headings.
+$font-size-xs: 13px;
+$font-size-sm: 14px;
+$font-size-base: 16px;
+$font-size-md: 17px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-2xl: 22px;
+$font-size-3xl: 26px;

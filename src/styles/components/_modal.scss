@@ -1,0 +1,71 @@
+@use "../abstracts" as *;
+
+// Generic modal/dialog scaffold. Not wired to any page yet, but ready to
+// drop a <dialog> or a plain <div role="dialog"> into — the cookie banner
+// is the closest existing analog (see _cookie-banner.scss) and this
+// generalizes that pattern for a centered overlay.
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: $z-cookie;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: space("lg");
+  background: rgba(var(--ink-rgb), 0.45);
+  animation: fade 0.2s ease both;
+}
+
+.modal {
+  width: min(560px, 100%);
+  max-height: calc(100vh - #{space("4xl")});
+  overflow-y: auto;
+  background: var(--white);
+  color: var(--ink);
+  border-radius: $radius-2xl;
+  border: 1px solid var(--line);
+  box-shadow: $shadow-xl;
+  padding: space("3xl");
+  display: flex;
+  flex-direction: column;
+  gap: space("lg");
+  animation: up 0.3s $ease-out-soft both;
+}
+
+.modal__header {
+  @include flex-between;
+  gap: space("md");
+}
+
+.modal__title {
+  margin: 0;
+  font-size: $font-size-2xl;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.modal__close {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: space("2xs");
+  border-radius: $radius-sm;
+
+  &:hover {
+    color: var(--ink);
+    background: var(--fog);
+  }
+}
+
+.modal__body {
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+.modal__actions {
+  display: flex;
+  gap: space("md");
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}

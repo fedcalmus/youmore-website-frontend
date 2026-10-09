@@ -1,0 +1,13 @@
+@use "../abstracts" as *;
+
+// `size` is a per-instance prop, passed inline as the `--social-size`
+// custom property (default matches the common 44px usage).
+.social-link {
+  width: var(--social-size, 44px);
+  height: var(--social-size, 44px);
+  border-radius: $radius-circle;
+  border: 1px solid var(--on-dark-border-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

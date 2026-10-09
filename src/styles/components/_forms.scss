@@ -1,0 +1,144 @@
+@use "../abstracts" as *;
+
+.lbl {
+  display: flex;
+  flex-direction: column;
+  gap: space("xs");
+  font-weight: 600;
+  font-size: $font-size-md;
+}
+
+.lbl--narrow {
+  max-width: 480px;
+}
+
+fieldset.sec {
+  border: 0;
+  margin: 0;
+  padding: space("3xl") 0 0;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  gap: space("2xl");
+  min-width: 0;
+
+  &:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  legend {
+    font-family: var(--font-bricolage), sans-serif;
+    font-size: $font-size-2xl;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    padding: 0;
+    float: left;
+    width: 100%;
+
+    & + * {
+      clear: both;
+    }
+  }
+}
+
+// Generic vertical form layout (replaces `style={{ display: "flex", flexDirection: "column", gap: ... }}`).
+.form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: space("5xl");
+}
+
+.form-stack--tight {
+  gap: space("xl");
+}
+
+// Responsive field rows, two flavors for the two minmax widths used across the forms.
+.field-grid {
+  @include grid-auto-fit(240px, space("xl"));
+}
+
+.field-grid--tight {
+  @include grid-auto-fit(200px, space("lg"));
+}
+
+.field-grid--wide {
+  @include grid-auto-fit(260px, space("xl"));
+}
+
+// A labeled radiogroup/checkbox-group block (legend-like span + .pills).
+.field-group {
+  @include flex-column(10px);
+}
+
+.field-group__label {
+  font-weight: 600;
+}
+
+// Password-style input with a trailing "show/hide" button.
+.password-field {
+  position: relative;
+  display: block;
+}
+
+.password-field .in {
+  padding-right: 104px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: space("2xs");
+  top: 2px;
+  min-height: 44px;
+  padding: 0 space("lg");
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.form-footnote {
+  margin: 0;
+  font-size: $font-size-sm;
+  color: var(--muted);
+}
+
+// Post-submit confirmation state shared by Application/Registration forms.
+.success-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: space("lg");
+}
+
+.success-panel--start {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border-radius: $radius-circle;
+  background: var(--sun);
+  color: var(--ink);
+}
+
+.success-icon--sm {
+  width: 72px;
+  height: 72px;
+}
+
+.success-actions {
+  display: flex;
+  gap: space("md");
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: space("sm");
+}

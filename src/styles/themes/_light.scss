@@ -1,0 +1,59 @@
+// Default (light) theme. Every color used across the site is a custom
+// property here so components never hard-code a hex value, and so a theme
+// can be swapped by setting data-theme on <html> (see _dark.scss).
+//
+// Colors that are ever combined with an alpha channel also get a `-rgb`
+// triplet so components can do `alpha(ink, 0.08)` (see abstracts/_functions).
+:root,
+:root[data-theme="light"] {
+  // Brand
+  --ink: #0b1a3a;
+  --ink-rgb: 11, 26, 58;
+  --blue: #1f3fd8;
+  --blue-rgb: 31, 63, 216;
+  --blue-dark: #132a9e;
+  --sun: #ffc83d;
+  --sun-rgb: 255, 200, 61;
+
+  // Neutrals
+  --white: #ffffff;
+  --white-rgb: 255, 255, 255;
+  --fog: #f5f6fa;
+  --fog-rgb: 245, 246, 250;
+  --line: #e2e6f0;
+  --line-soft: #eef0f6;
+  --muted: #4a5571;
+  --muted-faint: #8a93ab;
+  --ink-soft: #33405f;
+  --soft: #e8edff;
+
+  // Borders / fills used on inputs, pills, chips
+  --border: #d3d9e8;
+  --border-strong: #c9d0e2;
+  --border-faint: #b9c2da;
+  --panel: #eef1fa;
+  --panel-strong: #f0f3fb;
+  --track: #e8ebf3;
+  --seg-track: #eef1f7;
+
+  // Surfaces & text used on dark (navy) sections — hero, footer, cookie pins
+  --on-dark-muted: #a9b6e0;
+  --on-dark-link: #c9d3f5;
+  --on-dark-border: #dce2f5;
+  --map-dot-rgb: 173, 190, 255;
+  --on-dark-faint: #7f8cb8;
+  --on-dark-divider: #22305a;
+  --on-dark-border-strong: #2b3a63;
+
+  // Semantic
+  --error: #b42318;
+  --error-bg: #fef3f2;
+  --success: #12a150;
+
+  // "On sun" (dark gold text on the --sun yellow background)
+  --on-sun-ink: #3a3320;
+  --on-sun-muted: #6b5510;
+  --on-sun-strong: #5a4a10;
+
+  color-scheme: light;
+}

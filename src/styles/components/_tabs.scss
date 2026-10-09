@@ -1,0 +1,85 @@
+@use "../abstracts" as *;
+
+// Shared base for tab/segment/chip-style toggle buttons.
+.tabbtn,
+.tab,
+.seg {
+  min-height: 44px;
+  padding: 0 space("xl");
+  border-radius: $radius-pill;
+  border: 0;
+  font: inherit;
+  font-weight: 700;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  background: transparent;
+  color: var(--ink);
+  transition: background $duration-fast, color $duration-fast;
+}
+
+.tab {
+  min-height: 48px;
+  padding: 0 space("2xl");
+  font-size: $font-size-base;
+}
+
+.tabbtn[aria-selected="true"],
+.tab[aria-selected="true"],
+.seg[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--white);
+}
+
+// Tab list wrapper (pill track), e.g. LegalTabs.
+.tablist {
+  display: inline-flex;
+  gap: space("2xs");
+  padding: space("2xs");
+  background: var(--track);
+  border-radius: $radius-pill;
+}
+
+// Large selectable option row/tile with a trailing chevron/icon.
+.big {
+  flex: 1 1 0;
+  min-width: 260px;
+  min-height: 64px;
+  border: 0;
+  border-radius: $radius-xl;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: space("md");
+  padding: space("md") space("2xl");
+  background: var(--white);
+  color: var(--ink);
+  transition: background 0.25s, color 0.25s;
+
+  &[aria-selected="true"] {
+    background: var(--blue);
+    color: var(--white);
+  }
+}
+
+// Small filter/toggle chip.
+.chip {
+  min-height: 40px;
+  padding: 0 space("lg");
+  border-radius: $radius-pill;
+  font: inherit;
+  font-weight: 600;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  background: var(--white);
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+  transition: background $duration-fast, color $duration-fast, border-color $duration-fast;
+
+  &[aria-pressed="true"] {
+    background: var(--soft);
+    color: var(--blue);
+    border-color: var(--blue);
+  }
+}

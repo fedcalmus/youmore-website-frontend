@@ -1,0 +1,20 @@
+@use "../abstracts" as *;
+
+// Native <input type="date" class="in">. There's no custom calendar UI
+// here — just enough to make the browser widget sit flush with the rest
+// of the `.in` field set.
+input[type="date"].in {
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.65;
+    transition: opacity $duration-fast;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &::-webkit-date-and-time-value {
+    text-align: left;
+  }
+}

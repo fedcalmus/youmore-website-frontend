@@ -1,0 +1,65 @@
+@use "../abstracts" as *;
+
+.application-form__card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: $radius-4xl;
+  overflow: hidden;
+}
+
+.application-form__header {
+  background: var(--blue);
+  color: var(--white);
+  padding: clamp(28px, 4vw, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: space("3xl");
+  align-items: flex-end;
+}
+
+.application-form__title {
+  margin: 10px 0 0;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+.application-form__success {
+  padding: clamp(40px, 6vw, 80px) 24px;
+}
+
+.application-form__success-title {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.application-form__success-text {
+  margin: 0;
+  color: var(--muted);
+  font-size: $font-size-lg;
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+.application-form__body {
+  padding: clamp(24px, 4vw, 48px);
+}
+
+.application-form__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: space("lg");
+  align-items: center;
+  justify-content: space-between;
+  padding-top: space("3xl");
+  border-top: 1px solid var(--line-soft);
+}
+
+.application-form__footer-note {
+  font-size: $font-size-sm;
+  color: var(--muted);
+}

@@ -1,0 +1,43 @@
+@use "../abstracts" as *;
+
+// Small uppercase label used above section headings ("Candidatura",
+// "Esplora", "Contatti", hero kickers, ...).
+.eyebrow {
+  @include eyebrow(var(--sun));
+}
+
+.eyebrow--muted {
+  @include eyebrow(var(--on-dark-faint));
+}
+
+.eyebrow--blue {
+  @include eyebrow(var(--blue));
+}
+
+// Small status dot (project card status, project detail badges).
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-circle;
+}
+
+// Pill-shaped status/type badge.
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: space("sm");
+  font-size: $font-size-xs;
+  font-weight: 700;
+  padding: 7px space("md");
+  border-radius: $radius-pill;
+}
+
+.badge-pill--outline {
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+.badge-pill--soft {
+  background: var(--soft);
+  color: var(--blue);
+}

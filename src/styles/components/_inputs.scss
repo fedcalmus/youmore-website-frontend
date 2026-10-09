@@ -1,0 +1,70 @@
+@use "../abstracts" as *;
+
+.in {
+  width: 100%;
+  min-height: 48px;
+  border: 1.5px solid var(--border);
+  border-radius: $radius-md;
+  padding: 0 space("lg");
+  font: inherit;
+  font-weight: 400;
+  font-size: $font-size-base;
+  background: var(--white);
+  color: var(--ink);
+  transition: border-color $duration-fast, box-shadow $duration-fast;
+
+  &:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(var(--blue-rgb), 0.15);
+  }
+
+  &[aria-invalid="true"] {
+    border-color: var(--error);
+  }
+
+  &:read-only {
+    background: var(--fog);
+  }
+}
+
+textarea.in {
+  padding: space("md") space("lg");
+  min-height: 112px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.err {
+  color: var(--error);
+  font-size: $font-size-xs;
+  font-weight: 600;
+
+  &:empty {
+    display: none;
+  }
+}
+
+// Helper text under a field (character counters, hints).
+.hint {
+  font-size: $font-size-xs;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+// Search field with a leading icon slot (see .explorer__search-icon).
+.search {
+  width: 100%;
+  min-height: 44px;
+  border-radius: $radius-pill;
+  border: 1.5px solid var(--border);
+  padding: 0 space("lg") 0 42px;
+  font: inherit;
+  font-size: 15px;
+  background: var(--fog);
+  color: var(--ink);
+
+  &:focus {
+    @include focus-ring;
+  }
+}

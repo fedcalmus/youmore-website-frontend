@@ -1,0 +1,9 @@
+@use "../abstracts" as *;
+
+// `color` is a per-instance prop, applied inline — each stat on the page
+// gets a different accent.
+.stat-counter {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
