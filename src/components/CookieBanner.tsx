@@ -43,7 +43,13 @@ export function openCookiePreferences() {
   window.dispatchEvent(new Event(OPEN_EVENT));
 }
 
-export function CookieBanner() {
+export interface CookieBannerProps {
+  title: string;
+  text: string;
+  categoryLabels: { necessari: string; statistici: string; marketing: string };
+}
+
+export function CookieBanner({ title, text, categoryLabels }: CookieBannerProps) {
   const consent = useSyncExternalStore(subscribe, readConsent, getServerSnapshot);
   const [forceOpen, setForceOpen] = useState(false);
   const [mode, setMode] = useState<"simple" | "custom">("simple");
@@ -74,25 +80,24 @@ export function CookieBanner() {
 
   return (
     <div className="cookie" role="dialog" aria-label="Preferenze cookie">
-      <div className="disp cookie__title">Usiamo i cookie, con giudizio.</div>
+      <div className="disp cookie__title">{title}</div>
       <p className="cookie__text">
-        Quelli tecnici servono al sito per funzionare. Statistiche e marketing solo se ci dai il permesso.{" "}
-        <a href="/privacy-cookie#cookie">Leggi la cookie policy</a>
+        {text} <a href="/privacy-cookie?tab=cookie">Leggi la cookie policy</a>
       </p>
       {mode === "custom" && (
         <div className="cookie__prefs">
           <div className="cookie__pref-row">
-            <span className="cookie__pref-label">Necessari</span>
+            <span className="cookie__pref-label">{categoryLabels.necessari}</span>
             <span className="cookie__pref-static">Sempre attivi</span>
           </div>
           <div className="cookie__pref-row">
-            <span className="cookie__pref-label">Statistiche</span>
+            <span className="cookie__pref-label">{categoryLabels.statistici}</span>
             <button type="button" className="tog" role="switch" aria-checked={stats} aria-label="Cookie statistici" onClick={() => setStats((v) => !v)}>
               <span />
             </button>
           </div>
           <div className="cookie__pref-row">
-            <span className="cookie__pref-label">Marketing</span>
+            <span className="cookie__pref-label">{categoryLabels.marketing}</span>
             <button type="button" className="tog" role="switch" aria-checked={mkt} aria-label="Cookie di marketing" onClick={() => setMkt((v) => !v)}>
               <span />
             </button>

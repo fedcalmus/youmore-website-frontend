@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { Project, ProjectScope } from "@/lib/projects";
 import { ProjectCard } from "./ProjectCard";
@@ -26,7 +25,7 @@ export function ProjectsExplorer({ projects }: { projects: Project[] }) {
         (p) =>
           p.state === status &&
           (type === "all" || p.type === type) &&
-          (!q || `${p.title} ${p.country} ${p.city}`.toLowerCase().includes(q))
+          (!q || `${p.title} ${p.location ?? ""}`.toLowerCase().includes(q))
       ),
     [inScope, status, type, q]
   );
@@ -144,20 +143,17 @@ export function ProjectsExplorer({ projects }: { projects: Project[] }) {
         {list.length > 0 ? (
           <div className="explorer__grid">
             {visible.map((p, i) => (
-              <ProjectCard key={p.title} project={p} delay={(i % 6) * 0.06} />
+              <ProjectCard key={p.slug} project={p} delay={(i % 6) * 0.06} />
             ))}
           </div>
         ) : (
           <div className="explorer__empty">
             <div className="disp explorer__empty-title">Nessun progetto qui, per ora.</div>
-            <p className="explorer__empty-text">Registrati: ti avvisiamo appena apriamo nuove candidature.</p>
+            <p className="explorer__empty-text">Prova a modificare i filtri di ricerca.</p>
             <div className="explorer__empty-actions">
               <button type="button" className="btn btn-panel" onClick={resetFilters}>
                 Azzera filtri
               </button>
-              <Link className="btn btn-ink" href="/register">
-                Registrati
-              </Link>
             </div>
           </div>
         )}

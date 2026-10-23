@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LogoMark, Wordmark } from "./Logo";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { NAV_LINKS } from "@/lib/site";
 
 export function Header() {
@@ -31,34 +32,42 @@ export function Header() {
           <LogoMark />
           <Wordmark />
         </Link>
-        <button
-          type="button"
-          className="menu-btn"
-          aria-expanded={open}
-          aria-controls="main-nav"
-          aria-label={open ? "Chiudi il menu" : "Apri il menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-        <nav id="main-nav" className={`main-nav${open ? " open" : ""}`} aria-label="Principale">
-          {NAV_LINKS.map((link) => {
-            const active = pathname === link.href;
-            return (
-              <Link key={link.href} href={link.href} className={`nl${active ? " on" : ""}`} aria-current={active ? "page" : undefined}>
-                {link.label}
+        <div className="site-header__actions">
+          <button
+            type="button"
+            className="menu-btn"
+            aria-expanded={open}
+            aria-controls="main-nav"
+            aria-label={open ? "Chiudi il menu" : "Apri il menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+          <nav id="main-nav" className={`main-nav${open ? " open" : ""}`} aria-label="Principale">
+            {NAV_LINKS.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <Link key={link.href} href={link.href} className={`nl${active ? " on" : ""}`} aria-current={active ? "page" : undefined}>
+                  {link.label}
+                </Link>
+              );
+            })}
+            <div className="nav-cta-group">
+              <LanguageSwitcher />
+              <Link className="btn btn-ink nav-cta" href="/projects">
+                Scopri i progetti
               </Link>
-            );
-          })}
-          <Link className="btn btn-ink nav-cta" href="/register">
-            Registrati
-          </Link>
-        </nav>
-        <Link className="btn btn-ink hdr-cta" href="/register">
-          Registrati
-        </Link>
+            </div>
+          </nav>
+          <div className="hdr-cta-group">
+            <LanguageSwitcher />
+            <Link className="btn btn-ink hdr-cta" href="/projects">
+              Scopri i progetti
+            </Link>
+          </div>
+        </div>
       </div>
     </header>
   );

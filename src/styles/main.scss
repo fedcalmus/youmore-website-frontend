@@ -16,7 +16,9 @@
 @use "components/forms";
 @use "components/inputs";
 @use "components/select";
+@use "components/react-select";
 @use "components/datepicker";
+@use "components/flatpickr";
 @use "components/checkbox";
 @use "components/radio";
 @use "components/switch";
@@ -38,7 +40,6 @@
 @use "components/project-card";
 @use "components/legal-tabs";
 @use "components/application-form";
-@use "components/registration-form";
 @use "components/explorer";
 
 @use "pages/home" as page-home;
@@ -50,5 +51,4 @@
 @use "pages/privacy-cookie" as page-privacy-cookie;
 @use "pages/projects" as page-projects;
 @use "pages/project-detail" as page-project-detail;
-@use "pages/register" as page-register;
 @use "pages/testimonials" as page-testimonials;

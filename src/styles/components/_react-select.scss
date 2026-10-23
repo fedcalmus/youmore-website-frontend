@@ -1,0 +1,131 @@
+@use "../abstracts" as *;
+
+// Styles for `SelectField` (react-select, `unstyled` + `classNames`).
+// Matches the `.in` field contract (styles/components/_inputs.scss) so a
+// react-select dropdown sits flush with every other input on the site.
+
+.rselect {
+  &__control {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    width: 100%;
+    padding: 0 space("sm") 0 space("lg");
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: border-color $duration-fast, box-shadow $duration-fast;
+
+    &--is-focused {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(var(--blue-rgb), 0.15);
+    }
+
+    &--is-disabled {
+      background: var(--fog);
+      cursor: default;
+    }
+  }
+
+  &__value-container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: space("2xs");
+  }
+
+  &__placeholder {
+    color: var(--muted-faint);
+    font-size: $font-size-base;
+  }
+
+  &__single-value {
+    color: var(--ink);
+    font-size: $font-size-base;
+  }
+
+  &__input input {
+    color: var(--ink);
+    font: inherit;
+  }
+
+  &__indicators {
+    display: flex;
+    align-items: center;
+  }
+
+  &__indicator-separator {
+    width: 1px;
+    align-self: stretch;
+    margin: space("sm") space("2xs");
+    background: var(--line);
+  }
+
+  &__dropdown-indicator,
+  &__clear-indicator {
+    display: flex;
+    align-items: center;
+    padding: space("2xs") space("xs");
+    color: var(--muted);
+    cursor: pointer;
+    transition: color $duration-fast;
+
+    &:hover {
+      color: var(--ink);
+    }
+  }
+
+  &__loading-indicator {
+    color: var(--muted);
+  }
+
+  &__menu {
+    margin-top: space("2xs");
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: $radius-md;
+    box-shadow: $shadow-md;
+    overflow: hidden;
+    z-index: 20;
+  }
+
+  &__menu-list {
+    max-height: 260px;
+    overflow-y: auto;
+    padding: space("2xs");
+  }
+
+  &__group-heading {
+    padding: space("sm") space("md") space("2xs");
+    font-size: $font-size-xs;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+
+  &__option {
+    padding: space("sm") space("md");
+    border-radius: $radius-sm;
+    cursor: pointer;
+    color: var(--ink);
+    font-size: $font-size-base;
+    transition: background-color $duration-fast;
+
+    &--is-focused {
+      background: alpha(blue, 0.08);
+    }
+
+    &--is-selected {
+      background: var(--blue);
+      color: var(--white);
+    }
+  }
+
+  &__no-options {
+    padding: space("sm") space("md");
+    color: var(--muted);
+  }
+}

@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import { getProjects } from "@/lib/projects";
+import { getLocale } from "@/lib/locale";
 import { ProjectsExplorer } from "@/components/ProjectsExplorer";
 
 export const metadata: Metadata = {
@@ -13,7 +14,8 @@ export const instant = false;
 
 export default async function ProgettiPage() {
   await connection();
-  const projects = getProjects(true);
+  const lang = await getLocale();
+  const projects = await getProjects(lang);
 
   return (
     <>

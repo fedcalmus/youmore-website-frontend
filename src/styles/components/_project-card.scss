@@ -16,21 +16,18 @@
   width: min(360px, 82vw);
 }
 
-// Background/color come from the project's own palette (project.bg / .fg),
-// set inline per-card — see ProjectCard.tsx.
 .project-card__media {
   position: relative;
   overflow: hidden;
+  background: var(--panel-strong);
 }
 
-.project-card__media-code {
+.project-card__media-img {
   position: absolute;
-  right: space("lg");
-  bottom: -22px;
-  font-weight: 800;
-  font-size: 128px;
-  letter-spacing: -0.06em;
-  line-height: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .project-card__status {

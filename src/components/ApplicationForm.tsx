@@ -2,10 +2,31 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ArrowRightIcon, CheckIcon } from "./icons";
+import { submitApplication } from "@/lib/applications";
+import type { Gender, TshirtSize, VolunteerApplicationInput } from "@/lib/applications";
+import { DatePicker } from "./DatePicker";
+import { SelectField } from "./SelectField";
+
+const GENDER_OPTIONS = [
+  { value: "Donna", label: "Donna" },
+  { value: "Uomo", label: "Uomo" },
+  { value: "Non binario", label: "Non binario" },
+  { value: "Preferisco non dirlo", label: "Preferisco non dirlo" },
+];
+
+const SOURCE_OPTIONS = [
+  { value: "Instagram", label: "Instagram" },
+  { value: "Facebook", label: "Facebook" },
+  { value: "LinkedIn", label: "LinkedIn" },
+  { value: "Sito web", label: "Sito web" },
+  { value: "Passaparola", label: "Passaparola" },
+  { value: "Scuola o università", label: "Scuola o università" },
+  { value: "Altro", label: "Altro" },
+];
 
 type FormValues = {
   nome: string;
@@ -33,11 +54,27 @@ const REQUIRED_KEYS: (keyof FormValues)[] = [
   "passaporto", "valido", "motivazione", "prima", "fonte", "emergenza", "bisogni", "taglia", "privacy",
 ];
 
+const MIN_AGE = 16;
+const MAX_AGE = 99;
+
+function getAgeInYears(dob: Date): number {
+  const now = new Date();
+  let age = now.getFullYear() - dob.getFullYear();
+  const hasHadBirthdayThisYear = now.getMonth() > dob.getMonth() || (now.getMonth() === dob.getMonth() && now.getDate() >= dob.getDate());
+  if (!hasHadBirthdayThisYear) age -= 1;
+  return age;
+}
+
 const schema: yup.ObjectSchema<FormValues> = yup.object({
   nome: yup.string().trim().required("Campo obbligatorio"),
   cognome: yup.string().trim().required("Campo obbligatorio"),
   genere: yup.string().required("Campo obbligatorio"),
-  nascita: yup.string().required("Campo obbligatorio"),
+  nascita: yup
+    .string()
+    .required("Campo obbligatorio")
+    .test("not-future", "La data di nascita non può essere nel futuro", (value) => !value || new Date(value) <= new Date())
+    .test("min-age", `Devi avere almeno ${MIN_AGE} anni per candidarti`, (value) => !value || getAgeInYears(new Date(value)) >= MIN_AGE)
+    .test("max-age", "Controlla la data di nascita inserita", (value) => !value || getAgeInYears(new Date(value)) <= MAX_AGE),
   cittadinanza: yup.string().trim().required("Campo obbligatorio"),
   citta: yup.string().trim().required("Campo obbligatorio"),
   email: yup.string().trim().email("Controlla l’indirizzo email").required("Campo obbligatorio"),
@@ -54,10 +91,53 @@ const schema: yup.ObjectSchema<FormValues> = yup.object({
   privacy: yup.boolean().oneOf([true], "Serve il consenso al trattamento dei dati per inviare la candidatura").required(),
 });
 
-export function ApplicationForm({ projectTitle, projectLocation }: { projectTitle: string; projectLocation: string }) {
+function mapGender(value: string): Gender {
+  if (value === "Donna") return "FEMALE";
+  if (value === "Uomo") return "MALE";
+  return "OTHER";
+}
+
+function mapYesNo(value: string): boolean {
+  return value === "Sì";
+}
+
+/** "valido" has a third option ("Non lo so") that mapYesNo would otherwise collapse into "No" — keep it distinct. */
+function mapYesNoUnknown(value: string): boolean | null {
+  if (value === "Sì") return true;
+  if (value === "No") return false;
+  return null;
+}
+
+function toApplicationInput(data: FormValues): VolunteerApplicationInput {
+  return {
+    name: data.nome,
+    surname: data.cognome,
+    gender: mapGender(data.genere),
+    citizenship: data.cittadinanza,
+    city: data.citta,
+    dateOfBirth: data.nascita,
+    email: data.email,
+    phoneNumber: data.telefono,
+    hasPassport: mapYesNo(data.passaporto),
+    travelDocumentValidForCountry: mapYesNoUnknown(data.valido),
+    motivation: data.motivazione,
+    isFirstExperience: mapYesNo(data.prima),
+    howDidYouFindUs: data.fonte,
+    emergencyContact: data.emergenza,
+    specialNeeds: data.bisogni,
+    tshirtSize: data.taglia as TshirtSize,
+    emailGroupConsent: data.gruppo,
+    personalDataConsent: data.privacy,
+  };
+}
+
+export function ApplicationForm({ slug, projectTitle, projectLocation }: { slug: string; projectTitle: string; projectLocation: string }) {
   const [sent, setSent] = useState<{ name: string; email: string; when: string } | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
+    control,
     handleSubmit,
     watch,
     reset,
@@ -73,9 +153,20 @@ export function ApplicationForm({ projectTitle, projectLocation }: { projectTitl
   const motivLen = values.motivazione?.length || 0;
   const hasErrors = isSubmitted && Object.keys(errors).length > 0;
 
-  function onSubmit(data: FormValues) {
+  async function onSubmit(data: FormValues) {
+    setSubmitting(true);
+    setSubmitError(null);
+
+    const result = await submitApplication(slug, toApplicationInput(data));
+
+    setSubmitting(false);
+
+    if (!result.ok) {
+      setSubmitError(result.message);
+      return;
+    }
+
     const when = new Date().toLocaleString("it-IT", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
-    /* Qui il backend riceve i dati: es. fetch('/api/candidature', { method: 'POST', body: JSON.stringify(data) }) */
     setSent({ name: data.nome, email: data.email, when });
   }
 
@@ -132,6 +223,11 @@ export function ApplicationForm({ projectTitle, projectLocation }: { projectTitl
                 Mancano alcuni campi obbligatori. Li trovi evidenziati qui sotto.
               </div>
             )}
+            {submitError && (
+              <div role="alert" className="alert alert-error">
+                {submitError}
+              </div>
+            )}
 
             <fieldset className="sec">
               <legend>1 · Dati personali</legend>
@@ -150,17 +246,33 @@ export function ApplicationForm({ projectTitle, projectLocation }: { projectTitl
                 </label>
                 <label className="lbl">
                   Genere *
-                  <select className="in" {...register("genere")}>
-                    <option value="">Seleziona</option>
-                    <option>Donna</option>
-                    <option>Uomo</option>
-                    <option>Non binario</option>
-                    <option>Preferisco non dirlo</option>
-                  </select>
+                  <Controller
+                    control={control}
+                    name="genere"
+                    render={({ field }) => (
+                      <SelectField
+                        options={GENDER_OPTIONS}
+                        placeholder="Seleziona"
+                        value={GENDER_OPTIONS.find((o) => o.value === field.value) ?? null}
+                        onChange={(option) => field.onChange(option?.value ?? "")}
+                      />
+                    )}
+                  />
                   <span className="err">{errors.genere?.message}</span>
                 </label>
                 <label className="lbl">
-                  Data di nascita *<input className="in" type="date" autoComplete="bday" {...register("nascita")} />
+                  Data di nascita *
+                  <Controller
+                    control={control}
+                    name="nascita"
+                    render={({ field }) => (
+                      <DatePicker
+                        value={field.value || undefined}
+                        options={{ dateFormat: "Y-m-d", altInput: true, altFormat: "d/m/Y", maxDate: "today" }}
+                        onChange={(_dates, dateStr) => field.onChange(dateStr)}
+                      />
+                    )}
+                  />
                   <span className="err">{errors.nascita?.message}</span>
                 </label>
                 <label className="lbl">
@@ -250,16 +362,18 @@ export function ApplicationForm({ projectTitle, projectLocation }: { projectTitl
               </div>
               <label className="lbl lbl--narrow">
                 Dove hai trovato informazioni su Youmore? *
-                <select className="in" {...register("fonte")}>
-                  <option value="">Seleziona</option>
-                  <option>Instagram</option>
-                  <option>Facebook</option>
-                  <option>LinkedIn</option>
-                  <option>Sito web</option>
-                  <option>Passaparola</option>
-                  <option>Scuola o università</option>
-                  <option>Altro</option>
-                </select>
+                <Controller
+                  control={control}
+                  name="fonte"
+                  render={({ field }) => (
+                    <SelectField
+                      options={SOURCE_OPTIONS}
+                      placeholder="Seleziona"
+                      value={SOURCE_OPTIONS.find((o) => o.value === field.value) ?? null}
+                      onChange={(option) => field.onChange(option?.value ?? "")}
+                    />
+                  )}
+                />
                 <span className="err">{errors.fonte?.message}</span>
               </label>
             </fieldset>
@@ -303,7 +417,7 @@ export function ApplicationForm({ projectTitle, projectLocation }: { projectTitl
                 <input type="checkbox" {...register("privacy")} />
                 <span>
                   Autorizzo il trattamento dei miei dati personali ai sensi del D.lgs. 196/2003 «Codice in materia di protezione dei dati personali», del Regolamento UE 2016/679 (GDPR) e dell&apos;
-                  <Link href="/privacy-cookie">Informativa sul trattamento dei dati personali</Link> e sull&apos;<Link href="/privacy-cookie#cookie">utilizzo dei cookie</Link> (Provvedimento del Garante della Privacy 229/2014). *
+                  <Link href="/privacy-cookie">Informativa sul trattamento dei dati personali</Link> e sull&apos;<Link href="/privacy-cookie?tab=cookie">utilizzo dei cookie</Link> (Provvedimento del Garante della Privacy 229/2014). *
                 </span>
               </label>
               <span className="err">{errors.privacy?.message}</span>
@@ -311,8 +425,8 @@ export function ApplicationForm({ projectTitle, projectLocation }: { projectTitl
 
             <div className="application-form__footer">
               <span className="application-form__footer-note">* campo obbligatorio · data e ora dell&apos;invio vengono registrate automaticamente</span>
-              <button type="submit" className="btn btn-blue btn-lg">
-                Invia candidatura
+              <button type="submit" className="btn btn-blue btn-lg" disabled={submitting} aria-busy={submitting}>
+                {submitting ? "Invio in corso…" : "Invia candidatura"}
                 <ArrowRightIcon />
               </button>
             </div>

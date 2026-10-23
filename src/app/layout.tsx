@@ -3,7 +3,7 @@ import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import "@/styles/main.scss";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { CookieBanner } from "@/components/CookieBanner";
+import { CookieBannerData } from "@/components/CookieBannerData";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
 const figtree = Figtree({
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main id="main">{children}</main>
         <Footer />
-        <CookieBanner />
+        <CookieBannerData />
         <ScrollReveal />
       </body>
     </html>

@@ -64,6 +64,12 @@
   font-weight: 700;
 }
 
+.funder-card__logo-img {
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+}
+
 .funder-card__body {
   padding: space("2xl") + 4px;
   display: flex;

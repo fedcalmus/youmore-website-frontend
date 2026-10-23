@@ -1,9 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { HOME_PIN, LAND, PINS, pos } from "@/lib/map";
+import { HOME_PIN, LAND, pos } from "@/lib/map";
+import type { MapPin } from "@/lib/map";
 
-export function CountryMap() {
+export function CountryMap({ pins }: { pins: MapPin[] }) {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const dots = useMemo(() => {
@@ -36,7 +37,7 @@ export function CountryMap() {
         </div>
       </div>
 
-      {PINS.map((p, i) => {
+      {pins.map((p, i) => {
         const q = pos(p.lat, p.lon);
         const label = p.n === 1 ? "progetto realizzato" : "progetti realizzati";
         const on = activeId === p.id;

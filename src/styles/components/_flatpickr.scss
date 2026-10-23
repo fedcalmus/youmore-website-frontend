@@ -1,0 +1,364 @@
+@use "../abstracts" as *;
+
+// Calendar popup theme for `DatePicker` (react-flatpickr). flatpickr ships
+// its own CSS, which we don't import — this re-themes its own class hooks
+// with this site's tokens instead (same approach as admin's
+// assets/scss/plugins/_flatpicker.scss, but with --blue/--ink/--white/--line
+// instead of Bootstrap variables).
+
+.flatpickr-calendar {
+  background: var(--white);
+  opacity: 0;
+  display: none;
+  text-align: center;
+  visibility: hidden;
+  padding: 0;
+  animation: none;
+  border: 1px solid var(--line);
+  border-radius: $radius-md;
+  box-shadow: $shadow-md;
+  font-size: $font-size-sm;
+  line-height: 24px;
+  position: absolute;
+  width: 307.875px;
+  box-sizing: border-box;
+  touch-action: manipulation;
+
+  &.open,
+  &.inline {
+    opacity: 1;
+    max-height: 640px;
+    visibility: visible;
+  }
+
+  &.open {
+    display: inline-block;
+    z-index: 30;
+  }
+
+  &.animate.open {
+    animation: flatpickrFadeInDown $duration-base $ease-out-soft;
+  }
+
+  &::before,
+  &::after {
+    display: none;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.flatpickr-months {
+  display: flex;
+  background: var(--blue);
+  border-radius: $radius-md $radius-md 0 0;
+
+  .flatpickr-month {
+    background: transparent;
+    color: var(--white);
+    fill: var(--white);
+    height: 40px;
+    line-height: 1;
+    text-align: center;
+    position: relative;
+    user-select: none;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .flatpickr-prev-month,
+  .flatpickr-next-month {
+    text-decoration: none;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    height: 40px;
+    padding: space("md");
+    z-index: 3;
+    color: var(--white);
+    fill: var(--white);
+    transition: opacity $duration-fast;
+
+    &.flatpickr-disabled {
+      display: none;
+    }
+
+    &.flatpickr-prev-month {
+      left: 0;
+    }
+
+    &.flatpickr-next-month {
+      right: 0;
+    }
+
+    &:hover {
+      opacity: 0.75;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+
+      path {
+        fill: inherit;
+      }
+    }
+  }
+}
+
+.numInputWrapper {
+  position: relative;
+  height: auto;
+
+  input,
+  span {
+    display: inline-block;
+  }
+
+  input {
+    width: 100%;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+    }
+  }
+
+  span {
+    position: absolute;
+    right: 0;
+    width: 14px;
+    height: 50%;
+    opacity: 0;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &:hover span {
+    opacity: 1;
+  }
+}
+
+.flatpickr-current-month {
+  font-size: $font-size-base;
+  font-weight: 700;
+  color: inherit;
+  position: absolute;
+  width: 75%;
+  left: 12.5%;
+  line-height: 1;
+  height: 40px;
+  padding-top: 11px;
+  display: inline-block;
+  text-align: center;
+
+  span.cur-month {
+    font-weight: 700;
+    color: inherit;
+    display: inline-block;
+    margin-left: 0.4ch;
+  }
+
+  .numInputWrapper {
+    width: 6ch;
+    display: inline-block;
+  }
+
+  input.cur-year {
+    background: transparent;
+    color: inherit;
+    cursor: text;
+    padding: 0 0 0 0.4ch;
+    margin: 0;
+    font: inherit;
+    font-weight: 700;
+    border: 0;
+    appearance: textfield;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .flatpickr-monthDropdown-months {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    outline: none;
+
+    .flatpickr-monthDropdown-month {
+      background: var(--ink);
+      color: var(--white);
+    }
+  }
+}
+
+.flatpickr-weekdays {
+  background: var(--panel);
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  border-bottom: 1px solid var(--line);
+
+  .flatpickr-weekdaycontainer {
+    display: flex;
+    flex: 1;
+  }
+}
+
+span.flatpickr-weekday {
+  cursor: default;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  background: var(--panel);
+  color: var(--muted);
+  text-align: center;
+  display: block;
+  flex: 1;
+}
+
+.dayContainer,
+.flatpickr-weeks {
+  padding: space("3xs") 0 0 0;
+}
+
+.flatpickr-days {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  width: 307.875px;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.dayContainer {
+  padding: space("xs");
+  outline: 0;
+  text-align: left;
+  width: 307.875px;
+  min-width: 307.875px;
+  max-width: 307.875px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  opacity: 1;
+}
+
+.flatpickr-day {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: $radius-pill;
+  box-sizing: border-box;
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 500;
+  width: 14.2857143%;
+  flex-basis: 14.2857143%;
+  max-width: 36px;
+  height: 36px;
+  line-height: 36px;
+  margin: 2px 0;
+  display: inline-block;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+  transition: background-color $duration-fast, color $duration-fast;
+
+  &:hover,
+  &:focus {
+    background: alpha(blue, 0.08);
+    outline: 0;
+  }
+
+  &.today {
+    border-color: var(--blue);
+
+    &:hover,
+    &:focus {
+      background: alpha(blue, 0.12);
+    }
+  }
+
+  &.selected {
+    background: var(--blue);
+    color: var(--white);
+    border-color: var(--blue);
+
+    &:hover,
+    &:focus {
+      background: var(--blue-dark);
+    }
+  }
+
+  &.flatpickr-disabled,
+  &.flatpickr-disabled:hover,
+  &.prevMonthDay,
+  &.nextMonthDay,
+  &.notAllowed {
+    color: var(--muted-faint);
+    background: transparent;
+    border-color: transparent;
+    cursor: default;
+  }
+
+  &.flatpickr-disabled,
+  &.flatpickr-disabled:hover {
+    cursor: not-allowed;
+  }
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+.flatpickr-innerContainer {
+  display: flex;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.flatpickr-rContainer {
+  display: inline-block;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.flatpickr-input[readonly] {
+  cursor: pointer;
+}
+
+// `altInput: true` creates a second, visible text input and hides the
+// original — give it the same `.in` treatment as every other field (the
+// `altInputClass: "in"` default set in DatePicker.tsx targets this).
+input.flatpickr-input ~ input.flatpickr-input,
+input[type="text"].flatpickr-alt-input {
+  cursor: pointer;
+}
+
+@keyframes flatpickrFadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

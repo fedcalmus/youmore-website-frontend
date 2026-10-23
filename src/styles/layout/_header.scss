@@ -24,8 +24,96 @@
   text-decoration: none;
 }
 
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: space("sm");
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.hdr-cta-group,
+.nav-cta-group {
+  display: flex;
+  align-items: center;
+  gap: space("sm");
+}
+
 .hdr-cta {
   min-height: 44px;
+}
+
+.lang-switch {
+  position: relative;
+}
+
+.lang-switch__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: space("3xs");
+  border: 1.5px solid var(--line);
+  background: var(--white);
+  padding: space("3xs") space("sm");
+  border-radius: $radius-pill;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color $duration-fast, background $duration-fast;
+
+  &:hover {
+    border-color: var(--blue);
+  }
+
+  &[aria-expanded="true"] {
+    border-color: var(--blue);
+  }
+}
+
+.lang-switch__chevron {
+  transition: transform $duration-fast;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.lang-switch__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 1;
+  min-width: 150px;
+  margin: 0;
+  padding: space("3xs");
+  list-style: none;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+}
+
+.lang-switch__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: space("sm");
+  padding: space("xs") space("sm");
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background $duration-fast;
+
+  &:hover {
+    background: var(--soft);
+  }
+
+  &.on {
+    font-weight: 700;
+    color: var(--blue);
+  }
 }
 
 .nl {
@@ -52,17 +140,15 @@
   display: flex;
   gap: space("3xs");
   flex-wrap: wrap;
-  margin-left: auto;
   align-items: center;
 
-  .nav-cta {
+  .nav-cta-group {
     display: none;
   }
 }
 
 .menu-btn {
   display: none;
-  margin-left: auto;
   width: 48px;
   height: 48px;
   border: 0;
@@ -101,7 +187,7 @@
   .menu-btn {
     display: inline-flex;
   }
-  .hdr-cta {
+  .hdr-cta-group {
     display: none !important;
   }
   .main-nav {
@@ -122,8 +208,9 @@
       font-size: $font-size-lg;
     }
 
-    .nav-cta {
-      display: inline-flex;
+    .nav-cta-group {
+      display: flex;
+      flex-wrap: wrap;
       margin-top: space("sm");
     }
   }

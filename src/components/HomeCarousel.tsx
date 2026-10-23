@@ -3,11 +3,23 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import type { Project } from "@/lib/projects";
-import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon } from "./icons";
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, GlobeIcon } from "./icons";
 import { ProjectCard } from "./ProjectCard";
 
+const EMPTY_COPY = {
+  open: {
+    title: "Nessuna candidatura aperta in questo momento",
+    text: "I prossimi progetti sono in preparazione. Dai un'occhiata ai progetti conclusi o torna a trovarci presto.",
+  },
+  ended: {
+    title: "Nessun progetto concluso ancora",
+    text: "I progetti terminati compariranno qui non appena si chiuderanno.",
+  },
+};
+
 export function HomeCarousel({ open, ended }: { open: Project[]; ended: Project[] }) {
-  const [tab, setTab] = useState<"open" | "ended">("open");
+  // Lands on whichever tab actually has projects, so visitors aren't greeted by an empty rail.
+  const [tab, setTab] = useState<"open" | "ended">(open.length > 0 ? "open" : "ended");
   const [progress, setProgress] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const list = tab === "open" ? open : ended;
@@ -59,13 +71,25 @@ export function HomeCarousel({ open, ended }: { open: Project[]; ended: Project[
       </div>
 
       <div ref={trackRef} className="scroller carousel__track" onScroll={onScroll}>
+        {list.length === 0 && (
+          <div className="snap carousel__empty">
+            <span className="icon-circle carousel__empty-icon">
+              <GlobeIcon size={22} />
+            </span>
+            <h3 className="disp carousel__empty-title">{EMPTY_COPY[tab].title}</h3>
+            <p className="carousel__empty-text">{EMPTY_COPY[tab].text}</p>
+          </div>
+        )}
         {list.map((p) => (
           <ProjectCard key={p.title} project={p} carousel />
         ))}
         <Link href="/projects" className="card snap carousel__more">
           <span className="disp carousel__more-title">Vedi tutti i progetti</span>
           <span className="carousel__more-cta">
-            Nazionali e internazionali <ArrowRightIcon />
+            Nazionali e internazionali
+            <span className="carousel__more-arrow">
+              <ArrowRightIcon />
+            </span>
           </span>
         </Link>
       </div>

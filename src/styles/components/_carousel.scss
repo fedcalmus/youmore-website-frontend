@@ -41,6 +41,42 @@
   scroll-padding-left: max(24px, calc((100% - 1232px) / 2));
 }
 
+.carousel__empty {
+  flex: 0 0 auto;
+  width: min(360px, 82vw);
+  min-height: 360px;
+  border-radius: $radius-2xl;
+  background: var(--panel);
+  border: 1px dashed var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: space("md");
+  padding: 32px;
+}
+
+.carousel__empty-icon {
+  --icon-circle-size: 56px;
+  --icon-circle-bg: var(--white);
+  --icon-circle-color: var(--blue);
+}
+
+.carousel__empty-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.carousel__empty-text {
+  color: var(--muted);
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  max-width: 260px;
+}
+
 .carousel__more {
   flex: 0 0 auto;
   width: min(280px, 70vw);
@@ -53,6 +89,20 @@
   justify-content: space-between;
   padding: 28px;
   min-height: 360px;
+  transition: transform $duration-slow $ease-out-soft, background $duration-slow $ease-out-soft, box-shadow $duration-slow;
+
+  // Overrides the generic `.card:hover { color: var(--ink) }` lift effect, which would
+  // otherwise turn this title the same color as its own dark background. Extra `.card`
+  // in the selector keeps this win regardless of partial import order.
+  &.card:hover {
+    background: var(--blue);
+    color: var(--white);
+    transform: translateY(-6px) scale(1.015);
+  }
+
+  &:hover .carousel__more-arrow {
+    transform: translateX(6px);
+  }
 }
 
 .carousel__more-title {
@@ -68,6 +118,11 @@
   gap: space("sm");
   color: var(--sun);
   font-weight: 700;
+}
+
+.carousel__more-arrow {
+  display: inline-flex;
+  transition: transform $duration-base $ease-out-soft;
 }
 
 .carousel__progress {

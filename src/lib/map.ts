@@ -1,3 +1,5 @@
+import type { Project } from "./projects";
+
 export type MapPin = {
   id: string;
   name: string;
@@ -7,25 +9,117 @@ export type MapPin = {
   last?: string;
 };
 
-/** Dati di esempio: sostituire con i numeri reali. */
-export const PINS: MapPin[] = [
-  { id: "es", name: "Spagna", lat: 41.2, lon: 1.5, n: 6, last: "Move On, 2022" },
-  { id: "pt", name: "Portogallo", lat: 39.6, lon: -8.2, n: 2 },
-  { id: "fr", name: "Francia", lat: 46.6, lon: 2.5, n: 1 },
-  { id: "si", name: "Slovenia", lat: 46.1, lon: 14.8, n: 1 },
-  { id: "hu", name: "Ungheria", lat: 47.2, lon: 19.4, n: 2 },
-  { id: "pl", name: "Polonia", lat: 52.1, lon: 19.4, n: 2 },
-  { id: "lt", name: "Lituania", lat: 55.4, lon: 24.5, n: 3, last: "Emotion sense, 2022" },
-  { id: "ro", name: "Romania", lat: 45.9, lon: 24.9, n: 3 },
-  { id: "bg", name: "Bulgaria", lat: 41.8, lon: 23.5, n: 4, last: "Ways of facilitation, 2022" },
-  { id: "gr", name: "Grecia", lat: 38.6, lon: 22.3, n: 3 },
-  { id: "tr", name: "Turchia", lat: 37.6, lon: 31.5, n: 5, last: "WIN-WIN, Antalya" },
-  { id: "cy", name: "Cipro", lat: 35.1, lon: 33.4, n: 2, last: "Bridge to the future, 2022" },
-  { id: "ge", name: "Georgia", lat: 42.2, lon: 43.5, n: 2 },
-  { id: "am", name: "Armenia", lat: 40.2, lon: 44.5, n: 4, last: "Act of Unity, 2022" },
-];
-
 export const HOME_PIN = { lat: 45.53, lon: 9.93, label: "Chiari · sede" };
+
+const HOME_COUNTRY = "italia";
+
+/**
+ * Geographic coordinates can't be derived from project data, so this stays
+ * a static lookup — but which countries get a pin, and how many projects
+ * each one has, is computed from real projects (see `computeCountryPins`).
+ */
+const COUNTRY_COORDS: Record<string, { lat: number; lon: number }> = {
+  spagna: { lat: 41.2, lon: 1.5 },
+  portogallo: { lat: 39.6, lon: -8.2 },
+  francia: { lat: 46.6, lon: 2.5 },
+  slovenia: { lat: 46.1, lon: 14.8 },
+  ungheria: { lat: 47.2, lon: 19.4 },
+  polonia: { lat: 52.1, lon: 19.4 },
+  lituania: { lat: 55.4, lon: 24.5 },
+  romania: { lat: 45.9, lon: 24.9 },
+  bulgaria: { lat: 41.8, lon: 23.5 },
+  grecia: { lat: 38.6, lon: 22.3 },
+  turchia: { lat: 37.6, lon: 31.5 },
+  cipro: { lat: 35.1, lon: 33.4 },
+  georgia: { lat: 42.2, lon: 43.5 },
+  armenia: { lat: 40.2, lon: 44.5 },
+  germania: { lat: 51.2, lon: 10.4 },
+  estonia: { lat: 58.6, lon: 25.0 },
+  "repubblica ceca": { lat: 49.8, lon: 15.5 },
+  "macedonia del nord": { lat: 41.6, lon: 21.7 },
+};
+
+/** Proper-cased display name for each `COUNTRY_COORDS` key (lowercased for matching). */
+const COUNTRY_LABELS: Record<string, string> = {
+  spagna: "Spagna",
+  portogallo: "Portogallo",
+  francia: "Francia",
+  slovenia: "Slovenia",
+  ungheria: "Ungheria",
+  polonia: "Polonia",
+  lituania: "Lituania",
+  romania: "Romania",
+  bulgaria: "Bulgaria",
+  grecia: "Grecia",
+  turchia: "Turchia",
+  cipro: "Cipro",
+  georgia: "Georgia",
+  armenia: "Armenia",
+  germania: "Germania",
+  estonia: "Estonia",
+  "repubblica ceca": "Repubblica Ceca",
+  "macedonia del nord": "Macedonia del Nord",
+};
+
+/**
+ * A project's `location` is free text like "Braga, Portogallo" or, for multi-stop/omnibus
+ * posts, "Georgia, Macedonia del Nord, Spagna, Cipro". Strips parenthetical asides first
+ * (e.g. "Polonia (con visita a Cracovia)") so they don't pollute comma-splitting, then
+ * returns every comma-separated segment that matches a known country — segments like city
+ * names simply won't match anything and are ignored.
+ */
+function extractCountries(location: string | null): string[] {
+  if (!location) return [];
+  const cleaned = location.replace(/\([^)]*\)/g, "");
+  return cleaned
+    .split(",")
+    .map((segment) => segment.trim().toLowerCase())
+    .filter((segment) => segment in COUNTRY_COORDS || segment === HOME_COUNTRY);
+}
+
+/**
+ * Groups real projects by country for the home map + "paesi raggiunti" stat.
+ * Excludes the home country (Italia, already marked by `HOME_PIN`) and any
+ * country without a known coordinate. `n`/`last` feed the pin tooltip.
+ */
+export function computeCountryPins(projects: Project[]): MapPin[] {
+  const byCountry = new Map<string, { name: string; count: number; latestTime: number; latestLabel: string }>();
+
+  for (const project of projects) {
+    const keys = new Set(extractCountries(project.location));
+
+    for (const key of keys) {
+      if (key === HOME_COUNTRY) continue;
+
+      const coords = COUNTRY_COORDS[key];
+      if (!coords) continue;
+
+      const time = project.startDate ? new Date(project.startDate).getTime() : 0;
+      const year = project.startDate ? new Date(project.startDate).getFullYear() : undefined;
+      const label = year ? `${project.title}, ${year}` : project.title;
+
+      const existing = byCountry.get(key);
+      if (!existing) {
+        byCountry.set(key, { name: COUNTRY_LABELS[key], count: 1, latestTime: time, latestLabel: label });
+      } else {
+        existing.count += 1;
+        if (time >= existing.latestTime) {
+          existing.latestTime = time;
+          existing.latestLabel = label;
+        }
+      }
+    }
+  }
+
+  return Array.from(byCountry.entries()).map(([key, data]) => ({
+    id: key,
+    name: data.name,
+    lat: COUNTRY_COORDS[key].lat,
+    lon: COUNTRY_COORDS[key].lon,
+    n: data.count,
+    last: data.latestLabel,
+  }));
+}
 
 /** Simplified landmass rows (latitude -> longitude ranges) for the decorative dot map. */
 export const LAND: Record<number, [number, number][]> = {

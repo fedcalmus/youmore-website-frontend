@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { LogoMark, Wordmark } from "./Logo";
-import { SocialLinks } from "./SocialLinks";
+import { FooterContact } from "./FooterContact";
 import { FOOTER_LINKS, SITE } from "@/lib/site";
 import { openCookiePreferences } from "./CookieBanner";
 
@@ -28,12 +29,9 @@ export function Footer() {
           </nav>
           <div className="site-footer__contact">
             <div className="site-footer__heading">Contatti</div>
-            <Link className="flink" href="/contact">
-              {SITE.email}
-            </Link>
-            <div className="site-footer__social">
-              <SocialLinks />
-            </div>
+            <Suspense fallback={<Link className="flink" href="/contact">Contattaci</Link>}>
+              <FooterContact />
+            </Suspense>
           </div>
         </div>
         <div className="site-footer__bottom">
@@ -42,8 +40,11 @@ export function Footer() {
             <Link className="flink" href="/privacy-cookie">
               Privacy policy
             </Link>
-            <Link className="flink" href="/privacy-cookie#cookie">
+            <Link className="flink" href="/privacy-cookie?tab=cookie">
               Cookie policy
+            </Link>
+            <Link className="flink" href="/terms">
+              Termini e condizioni
             </Link>
             <button type="button" className="linkbtn" onClick={openCookiePreferences}>
               Preferenze cookie

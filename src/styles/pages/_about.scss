@@ -79,28 +79,36 @@
   align-items: flex-end;
   padding: space("2xl");
   font-weight: 600;
+  position: relative;
+  overflow: hidden;
 }
 
-.about-gallery__tile--a {
-  background: var(--blue);
-  color: var(--on-dark-link);
-}
-
-.about-gallery__tile--b {
-  background: var(--on-dark-border);
-  color: var(--muted);
+.about-gallery__tile--offset {
   margin-top: 56px;
 }
 
-.about-gallery__tile--c {
-  background: var(--sun);
-  color: var(--on-sun-strong);
-}
-
-.about-gallery__tile--d {
+.about-gallery__tile--photo {
   background: var(--ink);
-  color: var(--on-dark-muted);
-  margin-top: 56px;
+  color: #fff;
+}
+
+.about-gallery__tile-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-gallery__tile-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.about-gallery__tile-caption {
+  position: relative;
+  z-index: 1;
 }
 
 // Goals
@@ -149,6 +157,122 @@
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+}
+
+// Long description
+.about-long {
+  @include container;
+  padding-bottom: space("6xl") + 8px;
+}
+
+.about-long__text {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: $font-size-lg;
+  line-height: 1.6;
+}
+
+// "La nostra rete" — a directory-style list of partner organizations, kept visually
+// distinct from the board's big square portrait grid below: a full-bleed dark band
+// (like the old country-chip section this replaces) holding light, horizontal cards
+// with round avatars, laid out denser (more, smaller items per row).
+.about-partners {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.about-partners__inner {
+  @include container;
+  padding-top: space("10xl");
+  padding-bottom: space("10xl");
+}
+
+.about-partners__head {
+  max-width: 640px;
+  margin-bottom: space("5xl");
+}
+
+.about-partners__heading {
+  color: var(--white);
+}
+
+.about-partners__text {
+  margin: space("md") 0 0;
+  color: var(--on-dark-muted);
+  font-size: $font-size-lg;
+  line-height: 1.6;
+}
+
+.about-partners__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: space("md");
+}
+
+.about-partners__card {
+  display: flex;
+  align-items: center;
+  gap: space("lg");
+  padding: space("lg") space("xl");
+  background: var(--white);
+  color: var(--ink);
+  border-radius: $radius-xl;
+  transition: transform $duration-base $ease-out-soft, box-shadow $duration-base;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.about-partners__avatar {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: $radius-circle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.about-partners__avatar-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-partners__initials {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.about-partners__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.about-partners__title {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  @include truncate;
+}
+
+.about-partners__subtitle {
+  color: var(--muted);
+  font-size: $font-size-sm;
+  @include truncate;
+}
+
+.about-partners__empty {
+  color: var(--on-dark-muted);
 }
 
 // Board preview
@@ -202,62 +326,6 @@
 
 .about-board__role {
   color: var(--muted);
-}
-
-// Network
-.about-network {
-  background: var(--ink);
-  color: var(--white);
-}
-
-.about-network__inner {
-  @include container;
-  padding-top: space("10xl");
-  padding-bottom: space("10xl");
-  display: flex;
-  flex-wrap: wrap;
-  gap: space("6xl");
-  align-items: center;
-}
-
-.about-network__intro {
-  flex: 1 1 360px;
-}
-
-.about-network__title {
-  margin: 10px 0 16px;
-  font-size: clamp(32px, 4vw, 52px);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-  font-weight: 800;
-}
-
-.about-network__text {
-  margin: 0;
-  color: var(--on-dark-muted);
-  font-size: $font-size-lg;
-  line-height: 1.6;
-}
-
-.about-network__chips {
-  flex: 1.3 1 480px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.about-network__chip {
-  padding: space("md") space("xl");
-  border-radius: $radius-pill;
-  border: 1px solid var(--on-dark-border-strong);
-  font-weight: 600;
-}
-
-.about-network__chip--home {
-  background: var(--sun);
-  color: var(--ink);
-  font-weight: 700;
-  border: 0;
 }
 
 // Closing CTA

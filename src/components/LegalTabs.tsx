@@ -3,22 +3,28 @@
 import { useEffect, useState, type ReactNode } from "react";
 
 export function LegalTabs({
+  initialTab = "privacy",
   tocPrivacy,
   tocCookie,
   privacyDoc,
   cookieDoc,
 }: {
+  initialTab?: "privacy" | "cookie";
   tocPrivacy: ReactNode;
   tocCookie: ReactNode;
   privacyDoc: ReactNode;
   cookieDoc: ReactNode;
 }) {
-  const [tab, setTab] = useState<"privacy" | "cookie">("privacy");
+  const [tab, setTab] = useState<"privacy" | "cookie">(initialTab);
 
+  // `initialTab` (from the `?tab=` query string) is known server-side, so it's
+  // correct on first render with no flash. The hash (`#cookie`/`#c1`) is only
+  // ever known client-side, so it stays as a fallback for links that still use it.
   useEffect(() => {
+    if (initialTab === "cookie") return;
     const h = window.location.hash.slice(1);
     if (h === "cookie" || /^c\d$/.test(h)) setTab("cookie");
-  }, []);
+  }, [initialTab]);
 
   function show(which: "privacy" | "cookie") {
     setTab(which);

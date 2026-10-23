@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
-import { slugify } from "@/lib/projects";
 import { ArrowRightIcon, CalendarIcon, PinIcon } from "./icons";
 
 export function ProjectCard({ project, carousel = false, delay = 0 }: { project: Project; carousel?: boolean; delay?: number }) {
@@ -9,18 +8,12 @@ export function ProjectCard({ project, carousel = false, delay = 0 }: { project:
 
   return (
     <Link
-      href={`/projects/${slugify(project.title)}`}
+      href={`/projects/${project.slug}`}
       className={`card project-card ${carousel ? "snap project-card--carousel" : "anim"}`}
       style={carousel ? undefined : { animationDelay: `${delay}s` }}
     >
-      <div
-        className="project-card__media"
-        style={{ aspectRatio: `16/${carousel ? 11 : 10}`, background: project.bg, color: project.fg }}
-      >
-        <div className="pat pat--cover" style={{ opacity: 0.18 }} />
-        <div className="disp project-card__media-code" aria-hidden="true">
-          {project.cc}
-        </div>
+      <div className="project-card__media" style={{ aspectRatio: `16/${carousel ? 11 : 10}` }}>
+        <img className="project-card__media-img" src={project.mainImage} alt={project.title} />
         <span className="project-card__status">
           <span className="status-dot" style={{ background: project.dot }} />
           {project.status}
@@ -30,14 +23,18 @@ export function ProjectCard({ project, carousel = false, delay = 0 }: { project:
         <div className="project-card__eyebrow">{eyebrow}</div>
         <Heading className="disp project-card__title">{project.title}</Heading>
         <div className="project-card__meta">
-          <span className="project-card__meta-row">
-            <PinIcon />
-            {project.city}, {project.country}
-          </span>
-          <span className="project-card__meta-row">
-            <CalendarIcon />
-            {project.dates}
-          </span>
+          {project.location && (
+            <span className="project-card__meta-row">
+              <PinIcon />
+              {project.location}
+            </span>
+          )}
+          {project.dates && (
+            <span className="project-card__meta-row">
+              <CalendarIcon />
+              {project.dates}
+            </span>
+          )}
         </div>
         <div className="project-card__footer">
           <span className="project-card__deadline" style={{ color: project.dlColor }}>
