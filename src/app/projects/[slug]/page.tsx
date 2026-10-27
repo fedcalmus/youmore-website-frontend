@@ -10,8 +10,7 @@ import { ApplicationForm } from "@/components/ApplicationForm";
 import { TestimonialQuoteCard } from "@/components/TestimonialQuoteCard";
 
 export async function generateStaticParams() {
-  const projects = await getProjects();
-  return projects.map((p) => ({ slug: p.slug }));
+  return [{ slug: "__placeholder__" }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
