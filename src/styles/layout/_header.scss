@@ -8,6 +8,11 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
+  // Keeps the sticky header on its own compositing layer so mobile Safari
+  // doesn't repaint the backdrop-filter every scroll frame, which otherwise
+  // makes it visibly lag a beat below the top edge while scrolling.
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .site-header__bar {
