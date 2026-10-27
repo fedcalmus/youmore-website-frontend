@@ -9,7 +9,7 @@ export type MapPin = {
   last?: string;
 };
 
-export const HOME_PIN = { lat: 45.53, lon: 9.93, label: "Chiari · sede" };
+export const HOME_PIN = { lat: 45.54, lon: 10.22, label: "Brescia · sede" };
 
 const HOME_COUNTRY = "italia";
 

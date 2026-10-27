@@ -34,7 +34,7 @@
 }
 
 .project-detail__intro {
-  max-width: 820px;
+  max-width: 1000px;
 }
 
 .project-detail__badges {
@@ -45,7 +45,7 @@
 
 .project-detail__title {
   margin: space("lg") 0 0;
-  font-size: clamp(48px, 7vw, 104px);
+  font-size: clamp(40px, 6vw, 88px);
   line-height: 0.92;
   letter-spacing: -0.045em;
   font-weight: 800;
