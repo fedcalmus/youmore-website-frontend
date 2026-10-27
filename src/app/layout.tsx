@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import "@/styles/main.scss";
 import { Header } from "@/components/Header";
@@ -39,7 +40,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main id="main">{children}</main>
         <Footer />
-        <CookieBannerData />
+        <Suspense fallback={null}>
+          <CookieBannerData />
+        </Suspense>
         <ScrollReveal />
       </body>
     </html>
