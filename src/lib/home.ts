@@ -24,6 +24,7 @@ export interface HomeGalleryImage {
 }
 
 export interface HomePageContent {
+  heroBadge: string;
   stepsEyebrow: string;
   stepsTitle: string;
   aboutTeaserEyebrow: string;

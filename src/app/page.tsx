@@ -20,6 +20,8 @@ const FALLBACK_STEPS = [
   { id: 3, title: "Parti preparato", text: "Prima della partenza ti accompagniamo con un incontro di preparazione e tutte le informazioni pratiche." },
 ];
 
+const FALLBACK_HERO_BADGE = "Associazione di promozione sociale · Chiari (BS)";
+
 const FALLBACK_ABOUT_TEASER_TEXT =
   "<p>Youmore Morcelli Giovani è un'associazione di promozione sociale di Chiari, legata alla Fondazione Istituto Morcelliano. Coinvolgiamo ragazzi e operatori giovanili in scambi, corsi di formazione e volontariato con partner in tutta Europa e nel Mediterraneo.</p>";
 
@@ -73,7 +75,7 @@ export default async function Home() {
             <div className="home-hero__copy">
               <div className="up home-hero__badge">
                 <span className="home-hero__badge-dot" />
-                Associazione di promozione sociale · Chiari (BS)
+                {home?.heroBadge ?? FALLBACK_HERO_BADGE}
               </div>
               <h1 className="disp up d1 home-hero__title">
                 Parti con l&apos;Europa. Torna con qualcosa <span className="home-hero__title-accent">in più.</span>
