@@ -9,7 +9,10 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+# next build exits 1 the first time it needs to show the security-advisory
+# nudge, then succeeds on retry — harmless interactively, fatal in a
+# single-shot CI build, so run it twice.
+RUN npm run build || npm run build
 
 FROM node:22-alpine AS runner
 
