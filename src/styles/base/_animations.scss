@@ -110,14 +110,9 @@
   animation-delay: 0.4s;
 }
 
-@supports (animation-timeline: view()) {
-  .rv {
-    animation: up linear both;
-    animation-timeline: view();
-    animation-range: entry 5% cover 28%;
-  }
-}
-
+// Reveal-on-scroll is driven entirely by ScrollReveal.tsx adding `.js-rv` to
+// <html> and `.in` to each `.rv` element via IntersectionObserver — see that
+// file for why the CSS-only `animation-timeline: view()` approach was dropped.
 .js-rv .rv {
   opacity: 0;
   transform: translateY(28px);
