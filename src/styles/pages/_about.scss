@@ -5,6 +5,11 @@
   @include container;
   padding-top: 88px;
   padding-bottom: space("6xl") + 8px;
+
+  @include respond-down("sm") {
+    padding-top: space("6xl");
+    padding-bottom: space("4xl");
+  }
 }
 
 .about-hero__title {
@@ -116,6 +121,11 @@
   @include container;
   padding-top: 112px;
   padding-bottom: space("6xl") + 8px;
+
+  @include respond-down("sm") {
+    padding-top: space("6xl");
+    padding-bottom: space("4xl");
+  }
 }
 
 .about-goals__row {
@@ -163,6 +173,10 @@
 .about-long {
   @include container;
   padding-bottom: space("6xl") + 8px;
+
+  @include respond-down("sm") {
+    padding-bottom: space("4xl");
+  }
 }
 
 .about-long__text {
@@ -185,6 +199,11 @@
   @include container;
   padding-top: space("10xl");
   padding-bottom: space("10xl");
+
+  @include respond-down("sm") {
+    padding-top: space("6xl");
+    padding-bottom: space("6xl");
+  }
 }
 
 .about-partners__head {
@@ -280,6 +299,11 @@
   @include container;
   padding-top: space("8xl");
   padding-bottom: space("10xl");
+
+  @include respond-down("sm") {
+    padding-top: space("5xl");
+    padding-bottom: space("6xl");
+  }
 }
 
 .about-board__head {
@@ -338,6 +362,11 @@
   flex-direction: column;
   align-items: center;
   gap: space("2xl");
+
+  @include respond-down("sm") {
+    padding-top: space("6xl");
+    padding-bottom: space("6xl");
+  }
 }
 
 .about-closing__title {

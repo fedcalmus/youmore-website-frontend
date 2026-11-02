@@ -10,6 +10,11 @@
   @include container;
   padding-top: space("6xl");
   padding-bottom: space("10xl");
+
+  @include respond-down("sm") {
+    padding-top: space("4xl");
+    padding-bottom: space("6xl");
+  }
 }
 
 .section--tight {

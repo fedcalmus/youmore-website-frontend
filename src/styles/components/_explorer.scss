@@ -58,6 +58,7 @@
   display: inline-block;
   width: 8px;
   height: 8px;
+  flex: none;
   border-radius: $radius-circle;
   background: var(--success);
   margin-right: space("sm");
@@ -88,6 +89,10 @@
   @include container;
   padding-top: 28px;
   padding-bottom: space("10xl");
+
+  @include respond-down("sm") {
+    padding-bottom: space("6xl");
+  }
 }
 
 .explorer__count {

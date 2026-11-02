@@ -60,9 +60,19 @@
     animation: pulse 2.4s ease-out infinite;
   }
 
-  &:hover .core,
   &.on .core {
     transform: scale(1.5);
+  }
+
+  // Scoped to real pointer hover only — a touchscreen tap should never read
+  // as "hovering". The tip itself is shown by CSS alone (below), not by a
+  // JS mouseenter handler, so tapping can't get its state clobbered by a
+  // hover/focus event that fires a beat before the click that's meant to
+  // open it (the cause of the old "only shows on the second tap" bug).
+  @media (hover: hover) {
+    &:hover .core {
+      transform: scale(1.5);
+    }
   }
 
   &.on {
@@ -82,6 +92,18 @@
     text-align: left;
     pointer-events: none;
     white-space: nowrap;
+  }
+
+  // Hover preview (mouse only) and keyboard-focus preview are pure CSS so
+  // they can't race with the click handler that toggles `.on` for taps.
+  @media (hover: hover) {
+    &:hover .tip {
+      display: block;
+    }
+  }
+
+  &:focus-visible .tip {
+    display: block;
   }
 
   &.on .tip {

@@ -9,6 +9,11 @@
   gap: space("4xl");
   justify-content: space-between;
   align-items: flex-end;
+
+  @include respond-down("sm") {
+    padding-top: space("6xl");
+    padding-bottom: space("4xl");
+  }
 }
 
 .funders-head__title {
@@ -31,6 +36,10 @@
 .funders-list {
   @include container;
   padding-bottom: space("10xl");
+
+  @include respond-down("sm") {
+    padding-bottom: space("6xl");
+  }
 }
 
 .funders-list__grid {

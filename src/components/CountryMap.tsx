@@ -49,10 +49,6 @@ export function CountryMap({ pins }: { pins: MapPin[] }) {
             className={`pin${on ? " on" : ""}`}
             style={{ left: `${q.x}%`, top: `${q.y}%`, animationDelay: `${(0.9 + i * 0.07).toFixed(2)}s` }}
             aria-label={`${p.name}: ${p.n} ${label}`}
-            onMouseEnter={() => setActiveId(p.id)}
-            onMouseLeave={() => setActiveId((cur) => (cur === p.id ? null : cur))}
-            onFocus={() => setActiveId(p.id)}
-            onBlur={() => setActiveId((cur) => (cur === p.id ? null : cur))}
             onClick={() => setActiveId((cur) => (cur === p.id ? null : p.id))}
           >
             <span className="ring" style={{ animationDelay: `${(i * 0.17).toFixed(2)}s` }} />

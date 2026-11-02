@@ -34,6 +34,7 @@
 .testimonials-hero__avatar {
   width: 56px;
   height: 56px;
+  flex: none;
   border-radius: $radius-circle;
   background: var(--sun);
   color: var(--ink);
@@ -58,6 +59,11 @@
   @include container;
   padding-top: space("8xl") + 8px;
   padding-bottom: space("10xl");
+
+  @include respond-down("sm") {
+    padding-top: space("5xl");
+    padding-bottom: space("6xl");
+  }
 }
 
 .testimonials-wall__masonry {
@@ -113,7 +119,7 @@
 }
 
 .quote-card__tag--on-yellow {
-  background: alpha(ink, 0.1);
+  background: rgba(var(--ink-rgb), 0.1);
 }
 
 .quote-card__quote {

@@ -4,6 +4,10 @@
   @include container;
   padding-top: space("3xl");
   padding-bottom: space("6xl");
+
+  @include respond-down("sm") {
+    padding-bottom: space("4xl");
+  }
 }
 
 .board-crumbs__head {
@@ -36,6 +40,10 @@
   @include container;
   padding-top: 0;
   padding-bottom: space("10xl");
+
+  @include respond-down("sm") {
+    padding-bottom: space("6xl");
+  }
 }
 
 .board-list__grid {

@@ -4,6 +4,11 @@
   @include container;
   padding-top: space("9xl");
   padding-bottom: space("4xl");
+
+  @include respond-down("sm") {
+    padding-top: space("6xl");
+    padding-bottom: space("3xl");
+  }
 }
 
 .projects-head__row {

@@ -11,6 +11,11 @@
   padding-top: 72px;
   padding-bottom: space("4xl");
   @include flex-column(space("6xl"));
+
+  @include respond-down("sm") {
+    padding-top: space("5xl");
+    gap: space("4xl");
+  }
 }
 
 .site-footer__top {

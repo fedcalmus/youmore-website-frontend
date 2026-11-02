@@ -2,6 +2,10 @@
 
 .carousel {
   padding: space("8xl") 0 space("5xl");
+
+  @include respond-down("sm") {
+    padding: space("5xl") 0 space("3xl");
+  }
 }
 
 .carousel__head {
@@ -31,6 +35,16 @@
   gap: space("md");
   align-items: center;
   flex-wrap: wrap;
+
+  // Keep the tab pills and the prev/next arrows on one row instead of the
+  // arrows dropping to a row of their own — the tabs shrink (see .tabbtn)
+  // rather than wrap away from the arrows.
+  @include respond-down("sm") {
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: space("sm");
+  }
 }
 
 .carousel__track {

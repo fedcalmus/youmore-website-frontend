@@ -5,6 +5,7 @@
 .social-link {
   width: var(--social-size, 44px);
   height: var(--social-size, 44px);
+  flex: none;
   border-radius: $radius-circle;
   border: 1px solid var(--on-dark-border-strong);
   display: inline-flex;

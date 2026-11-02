@@ -47,6 +47,7 @@
 .home-hero__badge-dot {
   width: 8px;
   height: 8px;
+  flex: none;
   border-radius: $radius-circle;
   background: var(--sun);
 }
@@ -118,6 +119,11 @@
   @include container;
   padding-top: space("10xl");
   padding-bottom: space("5xl");
+
+  @include respond-down("sm") {
+    padding-top: space("6xl");
+    padding-bottom: space("3xl");
+  }
 }
 
 .home-steps__head {
@@ -177,6 +183,11 @@
   @include container;
   padding-top: space("10xl");
   padding-bottom: space("10xl");
+
+  @include respond-down("sm") {
+    padding-top: space("6xl");
+    padding-bottom: space("6xl");
+  }
 }
 
 .home-about__row {
@@ -280,6 +291,11 @@
   @include container;
   padding-top: space("10xl");
   padding-bottom: space("10xl");
+
+  @include respond-down("sm") {
+    padding-top: space("6xl");
+    padding-bottom: space("6xl");
+  }
 }
 
 .home-testimonials__head {
@@ -349,6 +365,11 @@
   @include container;
   padding-top: space("9xl");
   padding-bottom: space("9xl");
+
+  @include respond-down("sm") {
+    padding-top: space("5xl");
+    padding-bottom: space("5xl");
+  }
 }
 
 .home-funders__row {

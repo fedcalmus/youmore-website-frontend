@@ -99,7 +99,7 @@
 
 // Low-contrast button for use on a colored (e.g. sun-yellow) surface.
 .btn-ghost-ink {
-  background: alpha(ink, 0.08);
+  background: rgba(var(--ink-rgb), 0.08);
   color: var(--ink);
 
   &:hover {
@@ -124,6 +124,7 @@
 .round {
   width: 52px;
   height: 52px;
+  flex: none;
   border-radius: $radius-circle;
   border: 1.5px solid var(--border-strong);
   background: var(--white);
@@ -133,6 +134,11 @@
   justify-content: center;
   cursor: pointer;
   transition: background $duration-fast, color $duration-fast, border-color $duration-fast;
+
+  @include respond-down("sm") {
+    width: 44px;
+    height: 44px;
+  }
 
   &:hover {
     background: var(--ink);

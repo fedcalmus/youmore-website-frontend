@@ -12,6 +12,11 @@
   flex-wrap: wrap;
   gap: space("5xl");
   align-items: flex-start;
+
+  @include respond-down("sm") {
+    padding-bottom: space("6xl");
+    gap: space("3xl");
+  }
 }
 
 .legal-tabs__nav {
