@@ -6,14 +6,28 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
+// Sticky footer: body stretches to at least the viewport height and #main
+// (the only flexible child, between the header and footer) absorbs any
+// leftover space, so the dark footer sits flush against the bottom of the
+// screen instead of leaving a gap of the page's light background below it
+// on short pages.
 body {
   margin: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
   background: var(--fog);
   color: var(--ink);
   font-family: var(--font-figtree), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+#main {
+  flex: 1 0 auto;
+  min-width: 0;
 }
 
 a {
