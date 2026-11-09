@@ -111,14 +111,19 @@
 }
 
 // Reveal-on-scroll is driven entirely by ScrollReveal.tsx adding `.js-rv` to
-// <html> and `.in` to each `.rv` element via IntersectionObserver — see that
-// file for why the CSS-only `animation-timeline: view()` approach was dropped.
+// <html> and `.rv-in` to each `.rv` element via IntersectionObserver — see
+// that file for why the CSS-only `animation-timeline: view()` approach was
+// dropped. Named `.rv-in` rather than the shorter `.in` because `.in` is
+// already a generic input-styling class (see components/_inputs.scss); reusing
+// it here let that unrelated rule's border/background leak onto every
+// revealed `.rv` element once this state class started being applied on all
+// browsers.
 .js-rv .rv {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
 
-  &.in {
+  &.rv-in {
     opacity: 1;
     transform: none;
   }

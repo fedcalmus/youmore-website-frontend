@@ -24,14 +24,14 @@ export function ScrollReveal() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("in");
+            entry.target.classList.add("rv-in");
             io.unobserve(entry.target);
           }
         });
       },
       { rootMargin: "0px 0px -8% 0px" }
     );
-    document.querySelectorAll(".rv:not(.in)").forEach((el) => io.observe(el));
+    document.querySelectorAll(".rv:not(.rv-in)").forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, [pathname]);
 
