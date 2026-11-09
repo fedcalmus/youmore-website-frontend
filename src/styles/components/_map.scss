@@ -87,7 +87,7 @@
     display: none;
     position: absolute;
     bottom: 34px;
-    width: 150px;
+    width: 210px;
     background: var(--white);
     color: var(--ink);
     border-radius: $radius-lg;
@@ -96,6 +96,11 @@
     text-align: left;
     pointer-events: none;
     white-space: normal;
+    // Explicit stacking of its own (on top of the position it already had),
+    // so the open tooltip can't end up painted under the map's background
+    // dots or nearby pins even if something upstream changes its parent's
+    // stacking context.
+    z-index: $z-pin-active;
   }
 
   // Hover preview (mouse only) and keyboard-focus preview are pure CSS so
