@@ -62,6 +62,7 @@
 
   &.on .core {
     transform: scale(1.5);
+    box-shadow: 0 0 0 3px rgba(var(--ink-rgb), 0.9), 0 0 0 6px var(--sun);
   }
 
   // Scoped to real pointer hover only — a touchscreen tap should never read
@@ -75,6 +76,9 @@
     }
   }
 
+  // $z-pin-active comfortably clears the home-pin marker (z-index 3) and the
+  // background dot texture, so the open tooltip is never caught underneath
+  // them regardless of how close the pin sits to the home marker on screen.
   &.on {
     z-index: $z-pin-active;
   }
@@ -83,15 +87,15 @@
     display: none;
     position: absolute;
     bottom: 34px;
-    min-width: 190px;
+    width: 150px;
     background: var(--white);
     color: var(--ink);
     border-radius: $radius-lg;
     padding: space("md") space("xl");
-    box-shadow: $shadow-md;
+    box-shadow: $shadow-md, 0 0 0 2px var(--sun);
     text-align: left;
     pointer-events: none;
-    white-space: nowrap;
+    white-space: normal;
   }
 
   // Hover preview (mouse only) and keyboard-focus preview are pure CSS so
