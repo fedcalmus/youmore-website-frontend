@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import localFont from "next/font/local";
 import "@/styles/main.scss";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieBannerData } from "@/components/CookieBannerData";
 import { ScrollReveal } from "@/components/ScrollReveal";
 
-const figtree = Figtree({
+// Self-hosted rather than next/font/google: Turbopack's Google Fonts loader
+// fails the Docker build with "next/font/google queries have exactly one
+// entry" for these two families — both resolve to a single variable-font
+// file for every requested weight, which trips up its per-weight query
+// lookup. The files below are that same variable-font woff2 (latin subset),
+// downloaded once from fonts.gstatic.com, so no network access is needed
+// at build time either.
+const figtree = localFont({
+  src: "../fonts/figtree-latin-variable.woff2",
   variable: "--font-figtree",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "400 700",
+  display: "swap",
 });
 
-const bricolage = Bricolage_Grotesque({
+const bricolage = localFont({
+  src: "../fonts/bricolage-grotesque-latin-variable.woff2",
   variable: "--font-bricolage",
-  subsets: ["latin"],
-  weight: ["500", "700", "800"],
+  weight: "500 800",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
