@@ -1,11 +1,20 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { HOME_PIN, LAND, pos } from "@/lib/map";
 import type { MapPin } from "@/lib/map";
 
 export function CountryMap({ pins }: { pins: MapPin[] }) {
   const [activeId, setActiveId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!activeId) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!(e.target as HTMLElement).closest(".pin")) setActiveId(null);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [activeId]);
 
   const dots = useMemo(() => {
     const out: { key: string; x: number; y: number; delay: number }[] = [];
