@@ -79,7 +79,21 @@
   // $z-pin-active comfortably clears the home-pin marker (z-index 3) and the
   // background dot texture, so the open tooltip is never caught underneath
   // them regardless of how close the pin sits to the home marker on screen.
+  // Applied on hover/focus too, not just `.on` — the hover/focus tip preview
+  // (below) is shown without the click state ever being set, so without this
+  // the pin stays at the base z-index and its preview can end up under the
+  // home marker or a neighboring pin just like the click state could before.
   &.on {
+    z-index: $z-pin-active;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      z-index: $z-pin-active;
+    }
+  }
+
+  &:focus-visible {
     z-index: $z-pin-active;
   }
 
